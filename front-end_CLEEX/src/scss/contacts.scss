@@ -1,0 +1,202 @@
+.contacts {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 750px;
+    color: $light;
+    background: center center url(../img/shape_bg.svg) no-repeat, linear-gradient(transparent 50%, $dark 50%);
+    background-size: 100% 100%;
+
+    &__wrapper {
+        box-sizing: border-box;
+        max-width: $MaxW;
+        width: 100%;
+        height: 100%;
+        padding: 0 $padHor;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__title {
+        font-size: 36px;
+        font-weight: 700;
+        color: $prime;
+        padding: $spacing*3 0;
+    }
+
+    &__subtitle {
+        width: 100%;
+        font-size: 22px;
+        line-height: 30px;
+        margin-bottom: $spacing*4;
+    }
+
+    &__form {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &__input {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        & input {
+            width: 100%;
+            color: $light;
+            background-color: transparent;
+            font-size: 22px;
+            border-bottom: 4px solid $prime;
+            padding: $spacing*3 0;
+
+            &::placeholder {
+                color: $light;
+            }
+        }
+    }
+
+    &__name,
+    &__phone,
+    &__org {
+        &__error {
+            width: 100%;
+            height: 22px;
+            padding: $spacing/2 0;
+            color: $error;
+        }
+    }
+
+    &__policy {
+        width: 100%;
+        text-align: left;
+        margin: $spacing*3 0;
+
+        & a {
+            color: $prime;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &__info {
+        width: 35%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        font-size: 22px;
+
+        &>* {
+            margin: $spacing 0;
+        }
+
+        &__title {
+            font-weight: 700;
+        }
+
+        &__phone {
+            cursor: pointer;
+            color: $light;
+            background: left center url(../img/phone.svg) no-repeat;
+            background-size: contain;
+            padding: $spacing/2 0 $spacing/2 $spacing*6;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &__mail {
+            cursor: pointer;
+            color: $light;
+            background: left center url(../img/email.svg) no-repeat;
+            background-size: $spacing*4;
+            padding: $spacing/2 0 $spacing/2 $spacing*6;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &__local {
+            width: 100%;
+            text-align: right;
+            cursor: pointer;
+            color: $light;
+            line-height: 30px;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+@media (max-width: 1440px) {
+    $padHor: calc(16px + (128 - 16) * ((100vw - 768px) / (1440 - 768)));
+
+    .contacts {
+        height: 850px;
+        &__wrapper {
+            padding: 0 $padHor;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    .contacts {
+        &__wrapper {
+            flex-direction: column;
+        }
+
+        &__form {
+            width: 90%;
+            justify-content: center;
+        }
+
+        &__info {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .contacts {
+        background-size: 150% 100%;
+        &__wrapper {
+            padding: 0 16px;
+        }
+
+        &__form {
+            transform: scale(.9) translateY(10px);
+            opacity: 0;
+            transition: all 550ms ease-in-out;
+
+            & input {
+                font-size: 18px;
+                border-bottom: 2px solid $prime;
+
+            }
+        }
+
+        &__title {
+            font-size: 24px;
+        }
+
+        &__subtitle {
+            font-size: 14px;
+            line-height: 19px;
+        }
+    }
+}

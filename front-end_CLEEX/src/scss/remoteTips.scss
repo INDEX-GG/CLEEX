@@ -1,0 +1,162 @@
+.remoteTips {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    color: $dark;
+    padding-top: $spacing*5;
+
+    &__wrapper {
+        box-sizing: border-box;
+        max-width: $MaxW;
+        width: 100%;
+        height: 100%;
+        padding: 0 $padHor;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__img {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        & img {
+            filter: drop-shadow(0 0 25px $b);
+            width: 40%;
+            object-fit: contain;
+            overflow: hidden;
+
+            &:first-child {
+                align-self: flex-start;
+                margin-top: $spacing*11;
+            }
+
+            &:last-child {
+                align-self: flex-end;
+                margin-bottom: $spacing*11;
+            }
+        }
+    }
+
+    &__info {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        text-align: right;
+    }
+
+    &__pay {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+
+        & img,
+        svg {
+            height: 100%;
+        }
+    }
+}
+
+.applePay {
+    fill: $dark;
+}
+
+@media (max-width: 1250px) {
+    .remoteTips {
+        &__info {
+            justify-content: center;
+        }
+
+        &__pay {
+            margin-top: 20px;
+        }
+    }
+}
+
+@media (max-width: 1440px) {
+    $padHor: calc(16px + (128 - 16) * ((100vw - 768px) / (1440 - 768)));
+
+    .remoteTips {
+        &__wrapper {
+            padding: 0 $padHor;
+        }
+
+        &__img {
+            height: 80%;
+
+            & img {
+                width: 45%;
+
+                &:first-child {
+                    margin-top: 0;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+
+    .remoteTips {
+        height: 900px;
+        &__wrapper {
+            padding: 0 16px;
+            flex-direction: column;
+        }
+
+        &__img {
+            width: 100%;
+            height: 50%;
+
+            & img {
+                filter: drop-shadow(0 0 15px $b);
+                width: 40%;
+
+                &:first-child {
+                    object-fit: contain;
+                    height: 90%;
+                }
+
+                &:last-child {
+                    object-fit: contain;
+                    height: 90%;
+                }
+            }
+        }
+
+        &__info {
+
+            width: 100%;
+            height: 50%;
+        }
+
+        &__pay {
+            align-self: flex-end;
+            width: 65%;
+            height: 35px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+
+            & img,
+            svg {
+                height: 100%;
+            }
+        }
+    }
+}

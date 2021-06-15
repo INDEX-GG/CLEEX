@@ -1,0 +1,116 @@
+.tables {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    padding: 20px 40px 0;
+    &__wrapper {
+        width: 100%;
+        min-height: 450px;
+        height: 70vh;
+        max-height: 550px;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+    }
+    &__barcontainer {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    &__bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        height: 100%;
+        width: 50%;
+        background: linear-gradient($td, $td2);
+        font-size: 24px;
+        font-weight: 700;
+        border-radius: 56px;
+    }
+    &__tabcontainer {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    &__container {
+        width: 120px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+    &__btnBlock {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        
+    }
+    &__button {
+        transition: all 300ms ease-in-out;
+        margin: 0; 
+    }
+}   
+
+.table {
+    position: relative;
+
+    & input {
+        position: absolute;
+        opacity: 0;
+    }
+
+    & input:checked+.table__check {
+        background: linear-gradient($prime, $primedark);
+        transition: all 250ms ease-in-out;
+    }
+
+    & input:disabled+.table__check {
+        background: linear-gradient($td, $td2);
+        color: $secondary;
+        transition: all 250ms ease-in-out;
+    }
+
+    & input:disabled+.table__check.self {
+        background: linear-gradient($green, $greendark);
+        color: $td2;
+        transition: all 250ms ease-in-out;
+    }
+
+    &__check {
+        content: '';
+        width: 60px;
+        height: 60px;
+        background: linear-gradient($primelight, $secondary);
+        transition: all 250ms ease-in-out;
+        color: $td2;
+        font-size: 24px;
+        font-weight: 700;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    &:nth-child(3) {
+        & .table__check {
+            width: 120px;
+            border-radius: 60px;
+        }
+    }
+}

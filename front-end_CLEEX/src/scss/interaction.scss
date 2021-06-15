@@ -1,0 +1,263 @@
+.interaction {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 800px;
+    color: $dark;
+
+
+
+    &__wrapper {
+        box-sizing: border-box;
+        max-width: $MaxW;
+        width: 100%;
+        height: 100%;
+        padding: 0 $padHor;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    &__img {
+        position: relative;
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__nfcimg {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        z-index: -1;
+        width: 40%;
+    }
+
+    &__qrimg {
+        position: absolute;
+        bottom: 70px;
+        right: 0;
+        z-index: -1;
+        width: 35%;
+        opacity: .5;
+    }
+
+    &__info {
+        padding-left: $spacing*3;
+        width: 50%;
+        height: 100%;
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+.cleex {
+    &__card {
+        width: 420px;
+        height: 230px;
+        background-color: $dark;
+        box-sizing: border-box;
+        padding: $spacing*3;
+        border-radius: $radius;
+        color: $light;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &__descr {
+        width: 60%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__qr {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__wrapper {
+            width: 100%;
+            height: auto;
+            background-color: $w;
+            border-radius: 12px;
+            padding: 5%;
+
+            & img {
+                width: 100%;
+            }
+        }
+
+        &__info {
+            padding: $spacing $spacing/4;
+            text-align: center;
+            font-size: 12px;
+        }
+    }
+
+    &__logo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        & img {
+            width: 90%;
+            object-fit: contain;
+        }
+    }
+
+    &__sub {
+        padding: $spacing 0;
+        color: $prime;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    &__info {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        font-weight: 700;
+        font-size: 15px;
+
+        &>* {
+
+            padding: $spacing 0 $spacing $spacing*4;
+        }
+    }
+
+    &__eMenu {
+        background: center left url(../img/book.svg) no-repeat;
+        background-size: 20px;
+    }
+
+    &__callWaiter {
+        background: center left url(../img/hand.svg) no-repeat;
+        background-size: 20px;
+    }
+
+    &__tips {
+        background: center left url(../img/coin.svg) no-repeat;
+        background-size: 20px;
+    }
+}
+
+
+
+@media (max-width: 1440px) {
+    $padHor: calc(16px + (128 - 16) * ((100vw - 768px) / (1440 - 768)));
+
+    .interaction {
+        &__wrapper {
+            padding: 0 $padHor;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+
+    .interaction {
+        &__wrapper {
+            flex-direction: column-reverse;
+        }
+
+        &__info {
+            width: 65%;
+            height: 40%;
+            align-self: flex-end;
+        }
+
+        &__img {
+            width: 65%;
+            height: 60%;
+        }
+
+        &__nfcimg {
+            top: -40px;
+            width: 40%;
+        }
+
+        &__qrimg {
+            bottom: -40px;
+            width: 35%;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+
+    .interaction {
+        height: 1000px;
+        &__wrapper {
+            padding: 0 16px;
+            
+            flex-direction: column;
+        }
+
+        &__info {
+            width: 100%;
+            height: 50%;
+            align-self: center;
+        }
+
+        &__img {
+            width: 100%;
+            height: 50%;
+        }
+
+        &__nfcimg {
+            top: 0px;
+            width: 40%;
+        }
+
+        &__qrimg {
+            bottom: 0px;
+            width: 35%;
+        }
+    }
+
+    .cleex {
+        &__card {
+            width: 360px;
+            height: 197px;
+            padding: $spacing*2;
+        }
+
+        &__qr {
+            &__wrapper {
+                border-radius: 10px;
+                padding: 5%;
+            }
+
+            &__info {
+                padding: $spacing $spacing/4;
+                font-size: 10px;
+            }
+        }
+
+        &__sub {
+            padding: $spacing 0;
+            font-size: 9px;
+        }
+
+        &__info {
+            font-size: 13px;
+        }
+    }
+}

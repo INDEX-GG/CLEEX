@@ -1,0 +1,42 @@
+.notification {
+        width: 90%;
+        position: fixed;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        bottom: 50px;
+        box-sizing: border-box;
+        padding: 20px 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px $bg;
+        background-color: $td;
+        font-family: $ff1;
+        color: $light;
+        text-align: center;
+        animation: notifOpen 250ms ease-in-out;
+}
+
+.notifClose {
+    opacity: 0;
+    animation: notifClose 250ms ease-in-out;
+}
+
+@keyframes notifOpen {
+    from {
+        opacity: 0;
+        transform: translateY(106px) scale(.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes notifClose {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}

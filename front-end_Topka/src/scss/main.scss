@@ -1,0 +1,66 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+    min-height: 100%;
+    background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%), no-repeat center center url(../img/bg.webp);
+    background-size: cover;
+    background-color: $bg;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    transition: all 450ms ease-in-out;
+    backface-visibility: hidden;
+    webkit-backface-visibility: hidden;
+
+    &>* {
+        margin: 30px 0;
+    }
+}
+
+.nav {
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%;
+    height: 60px;
+    box-shadow: 0px 0px 24px rgba(34, 34, 34, 0.16);
+    background-color: $b;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 3;
+    transition: all 350ms ease-in-out;
+    transform: translateY(-60px);
+
+    &__back {
+        position: absolute;
+        left: 1rem;
+    }
+}
+
+.logo {
+    margin: 48px 0 0 0;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    position: static;
+    backface-visibility: hidden;
+    webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+
+    & img {
+        transform: translateZ(0);
+        transition: all 150ms ease-in-out;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        backface-visibility: hidden;
+        webkit-backface-visibility: hidden;
+    }
+}

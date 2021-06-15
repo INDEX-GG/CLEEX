@@ -1,0 +1,282 @@
+.fixed {
+    height: 48px;
+    font-size: 7px;
+    transition: all 350ms ease-in-out;
+}
+
+// .bg_square {
+//     display: none;
+//     width: 100%;
+//     height: 400px;
+//     background-color: $dark;
+//     position: absolute;
+//     left: 0;
+//     right: 0;
+//     margin: 0 auto;
+
+//     &_1 {
+//         top: 0;
+//     }
+
+//     &_2 {
+//         top: 5900px;
+//     }
+
+//     &_m1 {
+//         display: none;
+//     }
+
+//     &_m2 {
+//         display: none;
+//     }
+// }
+
+// .bg_figure {
+//     display: none;
+//     overflow: hidden;
+//     max-width: 1440px;
+//     width: 100%;
+//     height: 1400px;
+//     position: absolute;
+//     left: 0;
+//     right: 0;
+//     margin: 0 auto;
+//     background-color: $dark;
+//     border-radius: 15px;
+//     transform: rotate(124deg) skew(11deg, 38deg);
+
+//     &_1 {
+//         top: -125px;
+//     }
+
+//     &_2 {
+//         top: 1450px;
+//     }
+
+//     &_3 {
+//         top: 1500px;
+//     }
+
+//     &_4 {
+//         top: 3200px;
+//     }
+
+//     &_5 {
+//         top: 3250px;
+//     }
+
+//     &_6 {
+//         top: 5050px;
+//     }
+// }
+
+.show {
+    display: flex;
+}
+
+.hide {
+    display: none;
+}
+
+.upslide {
+    transform: scale(.95) translateY(30px);
+    opacity: 0;
+    transition: all 550ms ease-in-out;
+}
+
+.downslide {
+    transform: scale(.95) translateY(-30px);
+    opacity: 0;
+    transition: all 550ms ease-in-out;
+}
+
+.active {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    transition: all 550ms ease-in-out;
+}
+
+.shake {
+    animation-name: shake;
+    animation-delay: 300ms;
+    animation-duration: 950ms;
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 950ms;
+}
+
+.fadeOut {
+    animation-name: fadeOut;
+    animation-duration: 950ms;
+    opacity: 0;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: scale(.95) translateY(35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(.95) translateY(35px);
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    33% {
+        transform: rotate(10deg);
+    }
+
+    66% {
+        transform: rotate(-10deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+// @media (max-width: 1024px) {
+//     .bg_square {
+//         height: 400px;
+//         left: 0;
+//         right: 0;
+
+//         &_1 {
+//             top: 0;
+//         }
+
+//         &_2 {
+//             top: 5850px;
+//         }
+//     }
+
+//     .bg_figure {
+//         transform: rotateY(180deg) rotateZ(114deg) skew(11deg, 38deg);
+
+//         &_1 {
+//             top: -125px;
+
+//         }
+
+//         &_2 {
+//             top: 1450px;
+
+//         }
+
+//         &_3 {
+//             top: 1500px;
+
+//         }
+
+//         &_4 {
+//             top: 3250px;
+//         }
+
+//         &_5 {
+//             top: 3300px;
+//         }
+
+//         &_6 {
+//             top: 5050px;
+
+//         }
+//     }
+// }
+
+@media (max-width: 768px) {
+    .fixed {
+        height: 68px;
+        font-size: 10px;
+    }
+
+    .active {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        transition: all 550ms ease-in-out;
+    }
+
+    // .bg_square {
+    //     width: 100%;
+
+    //     left: 0;
+    //     right: 0;
+
+    //     &_1 {
+    //         top: 0;
+    //         height: 1550px;
+    //     }
+
+    //     &_2 {
+    //         top: 6350px;
+    //         height: 670px;
+
+    //     }
+
+    //     &_m1 {
+    //         top: 2700px;
+    //         display: block;
+    //         height: 500px;
+    //     }
+
+    //     &_m2 {
+    //         top: 4450px;
+    //         display: block;
+    //         height: 500px;
+    //     }
+    // }
+
+    // .bg_figure {
+    //     height: 400px;
+    //     transform: rotate(124deg) skew(11deg, 38deg);
+
+    //     &_1 {
+    //         top: 1350px;
+    //         left: 50px;
+    //     }
+
+    //     &_2 {
+    //         top: 2500px;
+    //         left: -50px;
+    //     }
+
+    //     &_3 {
+    //         top: 3000px;
+    //         left: 50px;
+    //     }
+
+    //     &_4 {
+    //         top: 4250px;
+    //         left: -50px;
+    //     }
+
+    //     &_5 {
+    //         top: 4750px;
+    //         left: 50px;
+    //     }
+
+    //     &_6 {
+    //         top: 6150px;
+    //         left: -50px;
+    //     }
+    // }
+}
