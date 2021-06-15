@@ -9,6 +9,7 @@ use Minishlink\WebPush\Subscription;
 // because you already stored it (cf. push_subscription.php)
 //$data = '{"endpoint":"https://fcm.googleapis.com/fcm/send/flTqd08y1NU:APA91bEsAG4mIsFmWxy6gVZ01FBt6g8wVn7IpgANYaoLZHWIC3ZvXAokUXuH1eQk9U99NUz4Z2YJ6WzzF6-1xsVCb5idhZ_oNpGvPTeA_4j45rMK63oXbTsQVYwpVmfOLy02KMWPxsYZ","expirationTime":null,"keys":{"p256dh":"BJMKV42QOTTkrXZAvferOKqIMu+Tkzf3NiJP5i5s8M8QLLURyl0fbMLBAcCJBCrZpl1pyH0NEVDp+9btlCImyKs=","auth":"MSrWqKcoI7l5G0q0lB4nkA=="},"contentEncoding":"aes128gcm"}';
 $subscription = Subscription::create(json_decode(file_get_contents('php://input'), true)["query"]);
+$tables = json_decode(file_get_contents('php://input'), true)["table"];
 
 $auth = array(
     'VAPID' => array(
@@ -22,7 +23,7 @@ $webPush = new WebPush($auth);
 
 $report = $webPush->sendOneNotification(
     $subscription,
-    "Hello! 👋"
+    "Заказ на стол: ".$tables
 );
 
 // handle eventual errors here, and remove the subscription from your server if it is expired

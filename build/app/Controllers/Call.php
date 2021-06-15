@@ -15,7 +15,7 @@ class Call extends BaseController
       
         $tables = new Tablestaff();
 
-        $result = $tables->where( 'tableNum',$this->request->getVar("table"))->findAll();
+        $result = $tables->where('tableNum',$this->request->getVar("table"))->findAll();
 
         if(empty($result))  // ну если в таблице пусто, тут разговор короткий
             return;
@@ -50,7 +50,6 @@ class Call extends BaseController
            $res = $staff->find($session->get('User')[0]["id"]);
            $answer =[
                'error' => false,
-               'push_token'=>$res["push_token"],
                'name'=>$resultOff["name"],
            ];
          //  var_dump($answer);
@@ -66,48 +65,5 @@ class Call extends BaseController
         }
 
 	}
-
-	public function sendPush($title)
-    {
-        $session = \Config\Services::session();
-        $staff = new Staff();
-        $res = $staff->find($session->get('User')[0]["id"]);
-
-        $url = "https://fcm.googleapis.com/fcm/send";
-
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
-        $headers = array(
-            "Authorization: key=AAAAWakNnGw:APA91bGx7xjKQV4XReJSfglbqwQfp_N3W4IbRu4jGIQU0KazUHo2YDRxRzOywEr9Yaue7PUgYAgdwrYgXOWAoXUT5zcsw-gO5XEqEoMxsOa91GH82wGytFI2Nlg0PIGobtKAuTLJSjl0",
-            "Content-Type: application/json",
-        );
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-
-        $data = <<<DATA
-            {
-              "notification": {
-                    "title": "Новый заказ на стол: {$title}",
-                    "body": "Нажмите на это уведомление, чтобы перейти в профиль.",
-                    "icon": "/itwonders-web-logo.png",
-                    "click_action": "https://cleex.ru/account"
-                },
-              "to": "{$res["push_token"]}"
-            }
-            DATA;
-
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-
-        //for debug only!
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-        $resp = curl_exec($curl);
-        curl_close($curl);
-
-        return $res["push_token"];
-    }
 
 }

@@ -5,6 +5,7 @@
 namespace App\Controllers;
 
 use App\Models\Staff;
+use App\Models\Tablestaff;
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
 use App\Controllers\BaseController;
@@ -15,22 +16,21 @@ class SendPushNotification extends BaseController
 {
 	public function index()
     {
-        $staff = new Staff();
-
         $session = \Config\Services::session();
+        $staff = new Staff();
+        $tables = new Tablestaff();
 
+        $result = $tables->where('tableNum',$this->request->getVar("table"))->findAll();
 
-        $result = $staff->find($session->get('User')[0]["id"]);
+        $resultOff = $staff->find($result[0]["staff_id"]); 
 
-        $data = '{"endpoint":"'.$result["endpoint"].'","expirationTime":null,"keys":{"p256dh":"'.$result["publicKey"].'","auth":"'.$result["authToken"].'"},"contentEncoding":"aes128gcm"}';
+        $data = '{"endpoint":"'.$resultOff["endpoint"].'","expirationTime":null,"keys":{"p256dh":"'.$resultOff["publicKey"].'","auth":"'.$resultOff["authToken"].'"},"contentEncoding":"aes128gcm"}';
 
-        $execQuery = [
-            "query" => $data,
-            'table' => $this->request->getVar("tableNum")
-        ];
-
-        $this->response->setJSON($execQuery);
-
+        $execQuery["query"] = $data;
+        $execQuery["table"] = $this->request->getVar("table");
+     
+      
+        return $this->response->setJSON($execQuery);
     }
 }
 
