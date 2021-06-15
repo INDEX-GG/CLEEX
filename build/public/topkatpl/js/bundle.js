@@ -4191,21 +4191,37 @@ function call() {
             console.log(urlGet)
             axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/call', urlGet)
             .then(response => {
-               
+                console.log(response)
                 if (response.data.error) {
                     callBtn.textContent = `${response.data.name} уже спешит к Вам`;
                     callBtn.classList.add('call_a');
                     Object(_services_services__WEBPACK_IMPORTED_MODULE_1__["notif"])('Официант уже летит к Вам', '.wrapper', 2500);
-                    console.log(response)
+                    const data1 = JSON.stringify(urlGet);
+                    console.log(data1);
+                    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/sendpushnotification', urlGet).then((res) => {
+                        let data2 = JSON.parse(JSON.stringify(res.data));
+                        console.log(data2);
+                        let data3 = JSON.parse(data2.query);
+                        let data4 = {query: data3, table: urlGet.table}
+                        console.log(data4)
+                        
+                        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('../../send_push_notification.php', data4).then((res) => console.log(res))
+                    });
                 } else if (response.data.length > 20) {
                     Object(_services_services__WEBPACK_IMPORTED_MODULE_1__["notif"])('Вас скоро обслужат', '.wrapper', 2500);
                     console.log(response)
+                    
                 } else {
                     callBtn.textContent = `${response.data.name} уже спешит к Вам`;
                     callBtn.classList.add('call_a');
                     Object(_services_services__WEBPACK_IMPORTED_MODULE_1__["notif"])('Официант спешит к вам', '.wrapper', 2500);
-                    console.log(response)
-                    
+                    const data1 = JSON.stringify(urlGet);
+                    console.log(data1);
+                    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/sendpushnotification', urlGet).then((res) => {
+                        // let data2 = JSON.parse(JSON.stringify(res.data));
+                        // console.log(data2);
+                        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('../../send_push_notification.php', res.data)
+                    });
                 }
             })
         } else {
