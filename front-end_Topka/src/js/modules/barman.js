@@ -1,15 +1,18 @@
-import {avatar, notif, stringToRubles, toRubles} from '../services/services';
+import {avatar, notif, stringToRubles, toRubles, showNav} from '../services/services';
 import axios from 'axios';
 
 function barman() {
     if (document.querySelector('.barman')) {
+        showNav();
         const barman = document.querySelector('.barman'),
-                name = barman.querySelector('.barman__name');
+                name = barman.querySelector('.barman__name'),
+                currentSum = barman.querySelector('.barman__current');
         function renderGetData() {
             axios.get('/GetProfileDate')
             .then(res => {
                 avatar('.barman__pic', res.data.img); //заработает, когда перенесем во views
                 name.textContent = res.data.name;
+                currentSum.textContent = `+ ${toRubles(445)} за сегодня`
                 console.log(res);
             })
         }
@@ -22,23 +25,20 @@ function barman() {
                     total.textContent = toRubles(totalSum);
                     min.textContent = `${toRubles(minSum)} - минимальная сумма для вывода средств`;
                     sum.value = total.textContent;
-                    sum.addEventListener('input', (e) => {
-                        let val = e.target.value;4
-                        if (val < minSum) {
-                            e.target.value = minSum;
+                    sum.addEventListener('change', (e) => {
+                        console.log(+e.target.value.replace(/[^0-9]/g, ''))
+                        if (+e.target.value.replace(/[^0-9]/g, '') < minSum) {
+                            e.target.value = toRubles(minSum);
                             notif( `Минимальная сумма, которую можно снять - ${toRubles(minSum)}`,'.wrapper', 2500)
-                        };
-                        if (val > totalSum) {
+                        } else if (+e.target.value.replace(/[^0-9]/g, '') > totalSum) {
                             console.log('okeyy')
-                            e.target.value = totalSum;
+                            e.target.value = toRubles(totalSum);
                             notif(`Вы не можете снять больше, чем у вас есть (${toRubles(totalSum)})`, '.wrapper', 2500 );
                         }
                     });
                   stringToRubles('.barman__sum');
         };
 
-        
-        
         renderGetData();
         renderTotalSum(1350, 200);
     }

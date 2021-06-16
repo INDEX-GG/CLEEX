@@ -22,7 +22,7 @@
     <img src="./topkatpl/img/logo.svg" alt='Лого'/>
  </div>
  <button data-menubtn class="button button_grey">Меню</button>
- <a data-tipbtn href="./topkatpl/leavetip.html" class="button button_grey">Оставить чаевые</a>
+ <a data-tipbtn href="/leavetip" class="button button_grey">Оставить чаевые</a>
  <button data-waitbtn class="button button_grey">Вызвать официанта</button>
  <button data-kitchen class="button button_grey hide">Кухня</button>
  <button data-bar class="button button_grey hide">Бар</button>
@@ -880,7 +880,5 @@
 </div>
    </div>
 </body>
-<script defer src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/8.6.5/firebase-messaging.js"></script>
 <script defer src="./topkatpl/js/bundle.js"></script>
 </html>

@@ -12,9 +12,7 @@ function menu() {
      let logoh = 250;
    if (logo && menuBtn) {
       logoResize(logo, logoh);
-
       menuBtn.addEventListener('click', subMenu);
-  
       function subMenu() {
          const kitchenBtn = bg.querySelector('[data-kitchen]'),
                barBtn = bg.querySelector('[data-bar]'),
@@ -183,6 +181,5 @@ function menu() {
       
       }
    }
-
 };
 export default menu;

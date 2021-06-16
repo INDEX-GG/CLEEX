@@ -5,7 +5,7 @@ function call() {
     if (document.querySelector('[data-waitbtn]')) {
     const callBtn = document.querySelector('[data-waitbtn]'),
         payBtn = document.querySelector('[data-tipbtn]');
-        payBtn.href = `./topkatpl/leavetip.html${window.location.search}`;
+        payBtn.href = `/leavetip${window.location.search}`;
 
     function callWaiter() {
         let urlGet = window.

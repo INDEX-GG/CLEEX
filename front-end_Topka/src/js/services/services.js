@@ -64,10 +64,12 @@ function logoResize(logo, logoheight) {
 
 function imageToShow(image, box) {
     if (image && box) {
+        const img = document.createElement('img');
+        box.append(img);
         const reader = new FileReader();
         reader.readAsDataURL(image);
         reader.onloadend = e => {
-            box.src = e.target.result;
+            img.src = e.target.result;
         }
     } else {
         console.log('Пришли пустые данные')
@@ -80,7 +82,7 @@ function avatar(imgSelector, imageSrc) {
         avatarBox.append(avatar);
     avatar.src = imageSrc;
     avatar.addEventListener('error', () => {
-        avatar.src = "./img/logo_tr.webp";
+        avatar.src = "/topkatpl/img/logo_tr.webp";
     }, {once:true})
 }
 
