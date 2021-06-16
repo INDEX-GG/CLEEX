@@ -3,11 +3,13 @@ import axios from 'axios';
 import Croppie from 'croppie';
 
 function profile () {
-    showNav();
+    
     function profilePrefs() {
         const form = document.querySelector('.profile');
         if (form) {
-        const upload = form.querySelector('.profile__file input'),
+            showNav();
+        const userpic = form.querySelector('.profile__img'),
+            upload = form.querySelector('.profile__file input'),
             nick = form.querySelector('.profile__name'),
             nickFld = form.querySelector('.profile__nameFld'),
             credo = form.querySelector('.profile__credo'),
@@ -74,7 +76,7 @@ function profile () {
                         format: 'webp'
                     })
                     .then(function(blob) {
-                        imageToShow(blob, avatar);
+                        imageToShow(blob, userpic);
                         res = blob;
                         cropImg.destroy();
                         modalClose();

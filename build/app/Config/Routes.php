@@ -64,7 +64,8 @@ $routes->delete('/PushSubscription', 'PushSubscription::create');
 
 $routes->get('/account/busyTables', 'Account::busyTables'); //Текущие вызовы со столов
 
-
+$routes->get('/leavetip', 'leavetip::index');
+$routes->get('/barman', 'barman::index');
 $routes->get('/account', 'Account::index');  //Возвращает view аккаунта официанта
 $routes->get('/tablesCount', 'Tables::CountTables'); // возвращает количество столов в заведении
 $routes->get('/tables', 'Tables::pageTable'); // возвращает информацию о столах, занятые, ошибки, свои

@@ -4108,13 +4108,16 @@ __webpack_require__.r(__webpack_exports__);
 
 function barman() {
     if (document.querySelector('.barman')) {
+        Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["showNav"])();
         const barman = document.querySelector('.barman'),
-                name = barman.querySelector('.barman__name');
+                name = barman.querySelector('.barman__name'),
+                currentSum = barman.querySelector('.barman__current');
         function renderGetData() {
             axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/GetProfileDate')
             .then(res => {
                 Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["avatar"])('.barman__pic', res.data.img); //заработает, когда перенесем во views
                 name.textContent = res.data.name;
+                currentSum.textContent = `+ ${Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["toRubles"])(445)} за сегодня`
                 console.log(res);
             })
         }
@@ -4127,23 +4130,20 @@ function barman() {
                     total.textContent = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["toRubles"])(totalSum);
                     min.textContent = `${Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["toRubles"])(minSum)} - минимальная сумма для вывода средств`;
                     sum.value = total.textContent;
-                    sum.addEventListener('input', (e) => {
-                        let val = e.target.value;4
-                        if (val < minSum) {
-                            e.target.value = minSum;
+                    sum.addEventListener('change', (e) => {
+                        console.log(+e.target.value.replace(/[^0-9]/g, ''))
+                        if (+e.target.value.replace(/[^0-9]/g, '') < minSum) {
+                            e.target.value = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["toRubles"])(minSum);
                             Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["notif"])( `Минимальная сумма, которую можно снять - ${Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["toRubles"])(minSum)}`,'.wrapper', 2500)
-                        };
-                        if (val > totalSum) {
+                        } else if (+e.target.value.replace(/[^0-9]/g, '') > totalSum) {
                             console.log('okeyy')
-                            e.target.value = totalSum;
+                            e.target.value = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["toRubles"])(totalSum);
                             Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["notif"])(`Вы не можете снять больше, чем у вас есть (${Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["toRubles"])(totalSum)})`, '.wrapper', 2500 );
                         }
                     });
                   Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["stringToRubles"])('.barman__sum');
         };
 
-        
-        
         renderGetData();
         renderTotalSum(1350, 200);
     }
@@ -4171,7 +4171,7 @@ function call() {
     if (document.querySelector('[data-waitbtn]')) {
     const callBtn = document.querySelector('[data-waitbtn]'),
         payBtn = document.querySelector('[data-tipbtn]');
-        payBtn.href = `./topkatpl/leavetip.html${window.location.search}`;
+        payBtn.href = `/leavetip${window.location.search}`;
 
     function callWaiter() {
         let urlGet = window.
@@ -4252,8 +4252,9 @@ __webpack_require__.r(__webpack_exports__);
 
 function leavetip(start, end, maxSumm) { 
     const paytip = document.querySelector('.paytip');
-    Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["showNav"])('yes'); //backHistory
+   
 if (paytip) {
+   Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["showNav"])('yes');
    const name = paytip.querySelector('.paytip__name'),
    credo = paytip.querySelector('.paytip__credo');
    
@@ -4530,9 +4531,7 @@ function menu() {
      let logoh = 250;
    if (logo && menuBtn) {
       Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["logoResize"])(logo, logoh);
-
       menuBtn.addEventListener('click', subMenu);
-  
       function subMenu() {
          const kitchenBtn = bg.querySelector('[data-kitchen]'),
                barBtn = bg.querySelector('[data-bar]'),
@@ -4701,7 +4700,6 @@ function menu() {
       
       }
    }
-
 };
 /* harmony default export */ __webpack_exports__["default"] = (menu);
 
@@ -4726,11 +4724,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function profile () {
-    Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["showNav"])();
+    
     function profilePrefs() {
         const form = document.querySelector('.profile');
         if (form) {
-        const upload = form.querySelector('.profile__file input'),
+            Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["showNav"])();
+        const userpic = form.querySelector('.profile__img'),
+            upload = form.querySelector('.profile__file input'),
             nick = form.querySelector('.profile__name'),
             nickFld = form.querySelector('.profile__nameFld'),
             credo = form.querySelector('.profile__credo'),
@@ -4797,7 +4797,7 @@ function profile () {
                         format: 'webp'
                     })
                     .then(function(blob) {
-                        Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["imageToShow"])(blob, _services_services__WEBPACK_IMPORTED_MODULE_0__["avatar"]);
+                        Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["imageToShow"])(blob, userpic);
                         res = blob;
                         cropImg.destroy();
                         modalClose();
@@ -5112,10 +5112,12 @@ function logoResize(logo, logoheight) {
 
 function imageToShow(image, box) {
     if (image && box) {
+        const img = document.createElement('img');
+        box.append(img);
         const reader = new FileReader();
         reader.readAsDataURL(image);
         reader.onloadend = e => {
-            box.src = e.target.result;
+            img.src = e.target.result;
         }
     } else {
         console.log('Пришли пустые данные')
@@ -5128,7 +5130,7 @@ function avatar(imgSelector, imageSrc) {
         avatarBox.append(avatar);
     avatar.src = imageSrc;
     avatar.addEventListener('error', () => {
-        avatar.src = "./img/logo_tr.webp";
+        avatar.src = "/topkatpl/img/logo_tr.webp";
     }, {once:true})
 }
 

@@ -4,16 +4,16 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
    <meta name="theme-color" content="#192021" />
-   <link rel="icon" href="./favicon.ico" />
-   <link href="./css/style.min.css" rel="stylesheet">
-   <link rel="apple-touch-icon" href="./logo192.png" />
-   <link rel="manifest" href="./manifest.json" />
+   <link rel="icon" href="./topkatpl/favicon.ico" />
+   <link href="./topkatpl/css/style.min.css" rel="stylesheet">
+   <link rel="apple-touch-icon" href="./topkatpl/logo192.png" />
+   <link rel="manifest" href="./topkatpl/manifest.json" />
    <title>Topka Reborn</title>
 </head>
 <body>
     <div class="wrapper theme">
         <nav class="nav">
-           <button href='../' class='nav__back'></button>
+           <a href='/account' class='nav__back'></a>
            <div class='nav__pos'>Вывод средств</div>
         </nav>
         <div class="barman">
@@ -34,7 +34,7 @@
                   <p>20 ₽ - комиссия с одного вывода средств</p>
               </div>
               <div class="barman__buttons">
-                  <button class="button_pay"><div>Вывести на карту</div><img src="./img/credit-card.svg"/></button>
+                  <button class="button_pay"><div>Вывести на карту</div><img src="./topkatpl/img/credit-card.svg"/></button>
               </div>
               <div class="barman__checks">
                    <label class="checkbox">
@@ -46,5 +46,5 @@
        </div>
      </div>
 </body>
-<script src="./js/bundle.js"></script>
+<script src="./topkatpl/js/bundle.js"></script>
 </html>

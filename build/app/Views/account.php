@@ -23,7 +23,7 @@
      </div>
      <a data-table href="/tables" class="button button_grey">Выбрать столик на сегодня</a>
      <a data-profile href="/profile" class="button button_grey">Настройка профиля</a>
-     <a data-barman href="./topkatpl/barman.html" class="button button_grey">Вывод средств</a>
+     <a data-barman href="/barman" class="button button_grey">Вывод средств</a>
      <a data-signout href = "/auth/logOut" class="button button_grey">Выход</a>
    </div>
 </body>

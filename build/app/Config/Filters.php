@@ -65,7 +65,7 @@ class Filters extends BaseConfig
 	public $filters = [
 
         'login' =>['before'=>['/login']],
-        'account'=>['before'=>['/account','/profile','/tables','/usedTables','/tablesCount','/busyTable','/GetProfileDate','/account/busyTables','/sendpushnotification','/PushSubscription']],
+        'account'=>['before'=>['/account','/profile','/tables','/usedTables','/tablesCount','/busyTable','/GetProfileDate','/account/busyTables']],
         'Logout'=>['before'=>['/auth/logOut']],
     ];
 }

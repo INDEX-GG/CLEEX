@@ -3,8 +3,9 @@ import axios from 'axios';
 
 function leavetip(start, end, maxSumm) { 
     const paytip = document.querySelector('.paytip');
-    showNav('yes'); //backHistory
+   
 if (paytip) {
+   showNav('yes');
    const name = paytip.querySelector('.paytip__name'),
    credo = paytip.querySelector('.paytip__credo');
    
