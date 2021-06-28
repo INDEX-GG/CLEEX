@@ -1212,6 +1212,7 @@ h2 {
 }
 
 .paytip__buttons > * {
+  text-align: center;
   margin: 8px 0;
 }
 
