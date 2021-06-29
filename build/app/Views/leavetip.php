@@ -198,18 +198,18 @@ function getGoogleTransactionInfo() {
         {
           label: "Subtotal",
           type: "SUBTOTAL",
-          price: "11.00",
+          price: "1100.00",
         },
       {
           label: "Tax",
           type: "TAX",
-          price: "1.00",
+          price: "20.00",
         }
     ],
     countryCode: 'US',
     currencyCode: "USD",
     totalPriceStatus: "FINAL",
-    totalPrice: "12.00",
+    totalPrice: "1120.00",
     totalPriceLabel: "Total"
   };
 }
