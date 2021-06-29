@@ -1869,10 +1869,15 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin: 100px 0 50px 0;
+  margin: 100px auto 50px auto;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+.offert__req > li {
+  padding: 0 !important;
+  list-style-type: none !important;
 }
 
 .offert__title {
@@ -1896,6 +1901,7 @@ body {
 
 .offert__text > ul > li {
   font-size: 1.5em;
+  line-height: 1.2em;
   list-style-type: decimal;
   padding: 1em 0;
 }
@@ -1903,6 +1909,18 @@ body {
 .offert__text > ul > ul > li {
   list-style-type: disc;
   padding: .7em 0;
+}
+
+.offert__text > ul > ul > li > ul > li {
+  list-style-type: square;
+  padding: .3em 0;
+  margin-left: 2em;
+}
+
+.offert__text > ul > ul > li > ul > li > ul > li {
+  list-style-type: circle;
+  padding: .1em 0;
+  margin-left: 1.2em;
 }
 
 .fixed {

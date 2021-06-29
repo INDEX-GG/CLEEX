@@ -58,10 +58,11 @@ let { src, dest } = require('gulp'),
 
 function browserSync(params) {
     browsersync.init({
-        server: {
-            baseDir: "../build/public/",
-        },
-        port: 3000,
+        // server: {
+        //     baseDir: "../build/public/",
+        // },
+        proxy: "http://localhost:8080/",
+        port: 4000,
         notify: true,
     });
 }
