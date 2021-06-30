@@ -82,8 +82,8 @@ const allowedCardAuthMethods = ["PAN_ONLY", "CRYPTOGRAM_3DS"];
 const tokenizationSpecification = {
   type: 'PAYMENT_GATEWAY',
   parameters: {
-    'gateway': 'example',
-    'gatewayMerchantId': 'exampleGatewayMerchantId'
+    'gateway': 'OPEN',
+    'gatewayMerchantId': '000000000051993'
   }
 };
 
@@ -198,7 +198,7 @@ function getGoogleTransactionInfo() {
         {
           label: "Subtotal",
           type: "SUBTOTAL",
-          price: "1100.00",
+          price: "11.00",
         },
       {
           label: "Tax",
@@ -209,7 +209,7 @@ function getGoogleTransactionInfo() {
     countryCode: 'US',
     currencyCode: "USD",
     totalPriceStatus: "FINAL",
-    totalPrice: "1120.00",
+    totalPrice: "31.00",
     totalPriceLabel: "Total"
   };
 }
