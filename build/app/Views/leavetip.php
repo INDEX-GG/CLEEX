@@ -81,6 +81,7 @@
 				<div>ID заказа (>6): <input name="ORDER" /></div>
 				<div>Описание заказа:<textarea name="DESC"></textarea></div>
 				<input name="MERCH_NAME" value="Кликс" />
+				<input name="MERCH_TOKEN_ID" value="000000000051992" />
 				<input name="MERCH_URL" value="https://cleex.ru"/>
 				<input name="TERMINAL" value="00051992" />
 				<input name="EMAIL" value="slideryo@gmail.com"/>
