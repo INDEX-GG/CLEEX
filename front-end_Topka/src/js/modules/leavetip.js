@@ -1,4 +1,5 @@
 import {showNav, avatar} from '../services/services';
+import { notif } from '../services/services';
 import axios from 'axios';
 
 function leavetip(start, end, maxSumm) { 
@@ -24,7 +25,7 @@ if (paytip) {
        );
    axios.post('/call', urlGet)
    .then(response => {
-      console.log(response);
+    //   console.log(response);
       avatar('.paytip__pic', `../images/${response.data.img}`)
       name.textContent = response.data.name;
       credo.textContent = response.data.motto;
@@ -179,8 +180,25 @@ if (paytip) {
        };
        reviewBtn.addEventListener('click', reviewSend);
     }
-       chooseSum();
-       reviews();
+
+	// function sendOpenPost() {
+	// 	const page = document.querySelector('.paytip'),
+	// 		  form = page.querySelector('.paytip__wrapper');
+			  
+	// 		  const formSend = (e) => {
+	// 			  e.preventDefault();
+	// 			  const sendData = new FormData(form);
+	// 			  console.log(sendData);
+	// 			  const data = JSON.stringify(Object.fromEntries(sendData.entries()));
+    //               console.log(data);
+	// 			  axios.post('https://3dstest.mdmbank.ru/cgi-bin/cgi_link', sendData).then(res => form.innerHTML = res.data).catch(err => console.log(err))
+	// 		  }
+	// 		form.addEventListener('submit', formSend)
+	// }
+
+	sendOpenPost();
+    chooseSum();
+    reviews();
 }
 };
 

@@ -4250,6 +4250,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function leavetip(start, end, maxSumm) { 
     const paytip = document.querySelector('.paytip');
    
@@ -4273,7 +4274,7 @@ if (paytip) {
        );
    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/call', urlGet)
    .then(response => {
-      console.log(response);
+    //   console.log(response);
       Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["avatar"])('.paytip__pic', `../images/${response.data.img}`)
       name.textContent = response.data.name;
       credo.textContent = response.data.motto;
@@ -4423,13 +4424,30 @@ if (paytip) {
          .then(() => {
             inputReview.value = '';
             closeReview();
-            notif('Спасибо Вам за отзыв', '.wrapper', 2000);
+            Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["notif"])('Спасибо Вам за отзыв', '.wrapper', 2000);
          })
        };
        reviewBtn.addEventListener('click', reviewSend);
     }
-       chooseSum();
-       reviews();
+
+	// function sendOpenPost() {
+	// 	const page = document.querySelector('.paytip'),
+	// 		  form = page.querySelector('.paytip__wrapper');
+			  
+	// 		  const formSend = (e) => {
+	// 			  e.preventDefault();
+	// 			  const sendData = new FormData(form);
+	// 			  console.log(sendData);
+	// 			  const data = JSON.stringify(Object.fromEntries(sendData.entries()));
+    //               console.log(data);
+	// 			  axios.post('https://3dstest.mdmbank.ru/cgi-bin/cgi_link', sendData).then(res => form.innerHTML = res.data).catch(err => console.log(err))
+	// 		  }
+	// 		form.addEventListener('submit', formSend)
+	// }
+
+	sendOpenPost();
+    chooseSum();
+    reviews();
 }
 };
 

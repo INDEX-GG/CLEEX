@@ -25,8 +25,8 @@
            <div class="paytip__name"></div>
            <div class="paytip__credo"></div>
         </div>
-        <form class="paytip__wrapper">
-            <input class="paytip__sum" name="summ" type="text"/>
+        <form class="paytip__wrapper" action="https://3dstest.mdmbank.ru/cgi-bin/cgi_link" method="POST">
+            <input class="paytip__sum"  type="text"/> 
             <div class="paytip__choiseSum">
                  <div class="button_mini button_mini_grey">100</div>
                  <div class="button_mini button_mini_grey">200</div>
@@ -47,7 +47,51 @@
                  
                </div>
             <div class="paytip__buttons">
-                <!-- <button class="button_pay"><div>Оплатить картой</div><img src="./topkatpl/img/gpay.svg"/></button> -->
+				<input name="CARD" />
+				<select name='EXP'>
+					<option value="01">01 January</option>
+					<option value="02">02 February</option>
+					<option value="03">03 March</option>
+					<option value="04">04 April</option>
+					<option value="05">05 May</option>
+					<option value="06">06 June</option>
+					<option value="07">07 July</option>
+					<option value="08">08 August</option>
+					<option value="09">09 September</option>
+					<option value="10">10 October</option>
+					<option value="11">11 November</option>
+					<option value="12">12 December</option>
+				</select>
+				<select name="EXP_YEAR">
+					<option value="21">2021</option>
+					<option value="22">2022</option>
+					<option value="23">2023</option>
+					<option value="24">2024</option>
+					<option value="25">2025</option>
+				</select>
+				<input name="CVC2" />
+				<select name="CVC2_RC">
+					<option selected value="1">CVC2 is present</option>
+					<option value="0">CVC2 is not provided</option>
+					<option value="2">CVC2 is illegible</option>
+					<option value="9">No CVC2 on card</option>
+				</select>
+				<div>Сумма: <input name="AMOUNT" /></div>
+				<div>Валюта: <input name="CURRENCY" value="RUB" /></div>
+				<div>ID заказа (>6): <input name="ORDER" /></div>
+				<div>Описание заказа:<textarea name="DESC"></textarea></div>
+				<input name="MERCH_NAME" value="Кликс" />
+				<input name="MERCH_URL" value="https://cleex.ru"/>
+				<input name="TERMINAL" value="00051992" />
+				<input name="EMAIL" value="slideryo@gmail.com"/>
+				<input name="TRTYPE" type="hidden" value="0"/>
+				<input name="COUNTRY" type="hidden"/>
+				<input name="MERCH_GMT" type="hidden"/>
+				<input name="TIMESTAMP" type="hidden" id='timestamp'/>
+		
+				<input name="BACKREF" type="hidden" value="https://cleex.ru/topka/leavetip"/>
+
+                <button class="button_pay" type="submit" name='SEND_BUTTON' id='payCardButton'><div>Оплатить картой</div><img src="./topkatpl/img/credit-card.svg"/></button>
                 <div id="container"></div>
             </div>
             <div class="paytip__checks">
@@ -66,180 +110,172 @@
 </body>
 
 <script>
+	const baseRequest = {
+	apiVersion: 2,
+	apiVersionMinor: 0
+  };
+  
+  const allowedCardNetworks = ["AMEX", "DISCOVER", "INTERAC", "JCB", "MASTERCARD", "VISA"];
+  
+  const allowedCardAuthMethods = ["PAN_ONLY", "CRYPTOGRAM_3DS"];
+  
+  const tokenizationSpecification = {
+	type: 'PAYMENT_GATEWAY',
+	parameters: {
+	  'gateway': 'example',
+	  'gatewayMerchantId': 'exampleGatewayMerchantId'
+	}
+  };
 
-const baseRequest = {
-  apiVersion: 2,
-  apiVersionMinor: 0
-};
-
-
-const allowedCardNetworks = ["AMEX", "DISCOVER", "INTERAC", "JCB", "MASTERCARD", "VISA"];
-
-
-const allowedCardAuthMethods = ["PAN_ONLY", "CRYPTOGRAM_3DS"];
-
-
-const tokenizationSpecification = {
-  type: 'PAYMENT_GATEWAY',
-  parameters: {
-    'gateway': 'example',
-    'gatewayMerchantId': 'exampleGatewayMerchantId'
-  }
-};
-
-
-const baseCardPaymentMethod = {
-  type: 'CARD',
-  parameters: {
-    allowedAuthMethods: allowedCardAuthMethods,
-    allowedCardNetworks: allowedCardNetworks
-  }
-};
-
-
-const cardPaymentMethod = Object.assign(
-  {},
-  baseCardPaymentMethod,
-  {
-    tokenizationSpecification: tokenizationSpecification
-  }
-);
-
-let paymentsClient = null;
-
-
-function getGoogleIsReadyToPayRequest() {
-  return Object.assign(
-      {},
-      baseRequest,
-      {
-        allowedPaymentMethods: [baseCardPaymentMethod]
-      }
+  const baseCardPaymentMethod = {
+	type: 'CARD',
+	parameters: {
+	  allowedAuthMethods: allowedCardAuthMethods,
+	  allowedCardNetworks: allowedCardNetworks
+	}
+  };
+  
+  const cardPaymentMethod = Object.assign(
+	{},
+	baseCardPaymentMethod,
+	{
+	  tokenizationSpecification: tokenizationSpecification
+	}
   );
-}
-
-
-function getGooglePaymentDataRequest() {
-  const paymentDataRequest = Object.assign({}, baseRequest);
-  paymentDataRequest.allowedPaymentMethods = [cardPaymentMethod];
-  paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
-  paymentDataRequest.merchantInfo = {
-    // @todo a merchant ID is available for a production environment after approval by Google
-    // See {@link https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist|Integration checklist}
-    // merchantId: '12345678901234567890',
-    merchantName: 'Example Merchant'
-  };
-
-  paymentDataRequest.callbackIntents = ["PAYMENT_AUTHORIZATION"];
-
-  return paymentDataRequest;
-}
-
-
-function getGooglePaymentsClient() {
-  if ( paymentsClient === null ) {
-    paymentsClient = new google.payments.api.PaymentsClient({
-        environment: 'TEST',
-      paymentDataCallbacks: {
-        onPaymentAuthorized: onPaymentAuthorized
-      }
-    });
+  
+  let paymentsClient = null;
+  
+  function getGoogleIsReadyToPayRequest() {
+	return Object.assign(
+		{},
+		baseRequest,
+		{
+		  allowedPaymentMethods: [baseCardPaymentMethod]
+		}
+	);
   }
-  return paymentsClient;
-}
-
-
-function onPaymentAuthorized(paymentData) {
-        return new Promise(function(resolve, reject){
-    // handle the response
-    processPayment(paymentData)
-    .then(function() {
-      resolve({transactionState: 'SUCCESS'});
-    })
-    .catch(function() {
-      resolve({
-        transactionState: 'ERROR',
-        error: {
-          intent: 'PAYMENT_AUTHORIZATION',
-          message: 'Insufficient funds',
-          reason: 'PAYMENT_DATA_INVALID'
-        }
-      });
-        });
-  });
-}
-
-function onGooglePayLoaded() {
-  const paymentsClient = getGooglePaymentsClient();
-  paymentsClient.isReadyToPay(getGoogleIsReadyToPayRequest())
-      .then(function(response) {
-        if (response.result) {
-          addGooglePayButton();
-        }
-      })
-      .catch(function(err) {
-        // show error in developer console for debugging
-        console.error(err);
-      });
-}
-
-
-function addGooglePayButton() {
-  const paymentsClient = getGooglePaymentsClient();
-  const button =
-      paymentsClient.createButton({
-		  onClick: onGooglePaymentButtonClicked,
-		  buttonSizeMode: 'fill',
-		  buttonColor: 'white',
+  
+  
+  function getGooglePaymentDataRequest() {
+	const paymentDataRequest = Object.assign({}, baseRequest);
+	paymentDataRequest.allowedPaymentMethods = [cardPaymentMethod];
+	paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
+	paymentDataRequest.merchantInfo = {
+	  // @todo a merchant ID is available for a production environment after approval by Google
+	  // See {@link https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist|Integration checklist}
+	  // merchantId: '12345678901234567890',
+	  merchantName: 'Example Merchant'
+	};
+  
+	paymentDataRequest.callbackIntents = ["PAYMENT_AUTHORIZATION"];
+  
+	return paymentDataRequest;
+  }
+  
+  function getGooglePaymentsClient() {
+	if ( paymentsClient === null ) {
+	  paymentsClient = new google.payments.api.PaymentsClient({
+		  environment: 'TEST',
+		paymentDataCallbacks: {
+		  onPaymentAuthorized: onPaymentAuthorized
+		}
+	  });
+	}
+	return paymentsClient;
+  }
+  
+  function onPaymentAuthorized(paymentData) {
+		  return new Promise(function(resolve, reject){
+	  // handle the response
+	  processPayment(paymentData)
+	  .then(function() {
+		resolve({transactionState: 'SUCCESS'});
+	  })
+	  .catch(function() {
+		resolve({
+		  transactionState: 'ERROR',
+		  error: {
+			intent: 'PAYMENT_AUTHORIZATION',
+			message: 'Insufficient funds',
+			reason: 'PAYMENT_DATA_INVALID'
+		  }
+		});
 		  });
-  document.getElementById('container').appendChild(button);
-}
+	});
+  }
+  
+  function onGooglePayLoaded() {
+	const paymentsClient = getGooglePaymentsClient();
+	paymentsClient.isReadyToPay(getGoogleIsReadyToPayRequest())
+		.then(function(response) {
+		  if (response.result) {
+			addGooglePayButton();
+		  }
+		})
+		.catch(function(err) {
+		  // show error in developer console for debugging
+		  console.error(err);
+		});
+  }
+  
+  function addGooglePayButton() {
+	const paymentsClient = getGooglePaymentsClient();
+	const button =
+		paymentsClient.createButton({
+			onClick: onGooglePaymentButtonClicked,
+			buttonSizeMode: 'fill',
+			buttonColor: 'white',
+			});
+	document.getElementById('container').appendChild(button);
+  }
+  
+  function getGoogleTransactionInfo() {
+	return {
+		  displayItems: [
+		  {
+			label: "Subtotal",
+			type: "SUBTOTAL",
+			price: "200.00",
+		  },
+		{
+			label: "Tax",
+			type: "TAX",
+			price: "20.00",
+		  }
+	  ],
+	  countryCode: 'RU',
+	  currencyCode: "RUB",
+	  totalPriceStatus: "FINAL",
+	  totalPrice: "220.00",
+	  totalPriceLabel: "Total"
+	};
+  }
+  
+  function onGooglePaymentButtonClicked() {
+	const paymentDataRequest = getGooglePaymentDataRequest();
+	paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
+  
+	const paymentsClient = getGooglePaymentsClient();
+	paymentsClient.loadPaymentData(paymentDataRequest);
+  }
+  
+  function processPayment(paymentData) {
+		  return new Promise(function(resolve, reject) {
+		  setTimeout(function() {
+				  // @todo pass payment token to your gateway to process payment
+				  paymentToken = paymentData.paymentMethodData.tokenizationData.token;
+  
+		  resolve({});
+	  }, 3000);
+	});
+  }
+</script>
 
-
-function getGoogleTransactionInfo() {
-  return {
-        displayItems: [
-        {
-          label: "Subtotal",
-          type: "SUBTOTAL",
-          price: "200.00",
-        },
-      {
-          label: "Tax",
-          type: "TAX",
-          price: "20.00",
-        }
-    ],
-    countryCode: 'RU',
-    currencyCode: "RUB",
-    totalPriceStatus: "FINAL",
-    totalPrice: "220.00",
-    totalPriceLabel: "Total"
-  };
-}
-
-
-function onGooglePaymentButtonClicked() {
-  const paymentDataRequest = getGooglePaymentDataRequest();
-  paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
-
-  const paymentsClient = getGooglePaymentsClient();
-  paymentsClient.loadPaymentData(paymentDataRequest);
-}
-
-
-function processPayment(paymentData) {
-        return new Promise(function(resolve, reject) {
-        setTimeout(function() {
-                // @todo pass payment token to your gateway to process payment
-                paymentToken = paymentData.paymentMethodData.tokenizationData.token;
-
-        resolve({});
-    }, 3000);
-  });
-}</script>
-<script async
-  src="https://pay.google.com/gp/p/js/pay.js"
-  onload="onGooglePayLoaded()"></script>
 <script src="./topkatpl/js/bundle.js"></script>
+<script
+  async
+  src="https://pay.google.com/gp/p/js/pay.js"
+  onload="onGooglePayLoaded()"
+></script>
+
 </html>
