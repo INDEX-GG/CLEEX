@@ -82,8 +82,8 @@ const allowedCardAuthMethods = ["PAN_ONLY", "CRYPTOGRAM_3DS"];
 const tokenizationSpecification = {
   type: 'PAYMENT_GATEWAY',
   parameters: {
-    'gateway': 'OPEN',
-    'gatewayMerchantId': '000000000051993'
+    'gateway': 'example',
+    'gatewayMerchantId': 'exampleGatewayMerchantId'
   }
 };
 
@@ -187,7 +187,11 @@ function onGooglePayLoaded() {
 function addGooglePayButton() {
   const paymentsClient = getGooglePaymentsClient();
   const button =
-      paymentsClient.createButton({onClick: onGooglePaymentButtonClicked});
+      paymentsClient.createButton({
+		  onClick: onGooglePaymentButtonClicked,
+		  buttonSizeMode: 'fill',
+		  buttonColor: 'white',
+		  });
   document.getElementById('container').appendChild(button);
 }
 
