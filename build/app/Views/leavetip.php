@@ -202,7 +202,7 @@ function getGoogleTransactionInfo() {
         {
           label: "Subtotal",
           type: "SUBTOTAL",
-          price: "11.00",
+          price: "200.00",
         },
       {
           label: "Tax",
@@ -210,10 +210,10 @@ function getGoogleTransactionInfo() {
           price: "20.00",
         }
     ],
-    countryCode: 'US',
-    currencyCode: "USD",
+    countryCode: 'RU',
+    currencyCode: "RUB",
     totalPriceStatus: "FINAL",
-    totalPrice: "31.00",
+    totalPrice: "220.00",
     totalPriceLabel: "Total"
   };
 }
