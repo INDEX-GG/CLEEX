@@ -44,8 +44,10 @@ $routes->get('/topka', 'Topka::index');
 $routes->get('/test', 'Test::index');
 
 $routes->post('/Add', 'Add::index'); //добавить фильтр нужно
-
-
+/////////////////////
+$routes->get('/hashGen', 'HashGen::token');
+$routes->post('/h1gen', 'HashGen::h1');
+///////////////////
 $routes->post('/updateProfile', 'Updateprofile::updateProfileDate');  //Обновляет данные профиля
 $routes->post('/usedTables','Usedtables::fixTable'); //Добавляет столы в таблицу
 $routes->post('/unsetTables', 'Usedtables::unsetTable'); // Удаляет столы из таблицы
