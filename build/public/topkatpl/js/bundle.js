@@ -4279,7 +4279,19 @@ if (paytip) {
       name.textContent = response.data.name;
       credo.textContent = response.data.motto;
    })
-     
+
+   function timeStamp(GMT = 0) {
+	   const date = new Date()
+	   const YYYY = date.getFullYear(),
+			MM = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["addZero"])(date.getMonth() + 1),
+			DD = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["addZero"])(date.getDate()),
+			hh = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["addZero"])(date.getUTCHours() + GMT),
+			mm = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["addZero"])(date.getMinutes()),
+			ss = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["addZero"])(date.getSeconds());
+	   return `${YYYY}${MM}${DD}${hh}${mm}${ss}`
+   }
+   console.log(timeStamp());
+
    //Выбор суммы чаевых
    function chooseSum() {
        const paytipBtns = paytip.querySelectorAll('.button_mini'),
@@ -4433,7 +4445,8 @@ if (paytip) {
 	function sendOpenPost() {
 		const page = document.querySelector('.paytip'),
 			  form = page.querySelector('.paytip__wrapper'),
-			  submitBtn = page.querySelector('#payCardButton');
+			  submitBtn = page.querySelector('#payCardButton'),
+			  timestamp = form.querySelector('#timestamp');
 				const fields = [
 					'AMOUNT', 'CURRENCY', 'ORDER',
 					'DESC', 'MERCH_NAME', 'MERCH_URL',
@@ -4443,17 +4456,19 @@ if (paytip) {
 				];
 
 			  function sendForm(e) {
-				// e.preventDefault();
-				const data = new FormData(form);
-				const data2 = (Object.fromEntries(data.entries()));
-				console.log(data2)
-				const data3 = fields.map(field => (data2[field].length === 0) ? '-' :`${data2[field].length}${data2[field]}`);
-				console.log(data3);
-				const data4 = data3.join('');
-				console.log(data4);
-				console.log(data4.length);
-				const a = '8c91c58960dc71665760526376d226de3a4b55da'
-				form.setAttribute('action', 'https://3dstest.mdmbank.ru/cgi-bin/cgi_link')
+				e.preventDefault();
+				timestamp.value = timeStamp();
+				const data = new FormData(form),
+					  data2 = (Object.fromEntries(data.entries())),
+	 				  data3 = fields.map(field => (data2[field].length === 0) ? '-' :`${data2[field].length}${data2[field]}`),
+		 			  MAC = data3.join('');
+
+				console.log(data2);   
+				console.log(MAC);
+				console.log(MAC.length);
+			
+
+				// form.setAttribute('action', 'https://3dstest.mdmbank.ru/cgi-bin/cgi_link')
 			  }
 
 
@@ -5065,7 +5080,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /*!*************************************!*\
   !*** ./src/js/services/services.js ***!
   \*************************************/
-/*! exports provided: notif, showNav, isPartVis, isFullVis, logoResize, imageToShow, postData, avatar, stringToRubles, toRubles */
+/*! exports provided: notif, showNav, isPartVis, isFullVis, logoResize, imageToShow, postData, avatar, stringToRubles, toRubles, addZero */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5080,6 +5095,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "avatar", function() { return avatar; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stringToRubles", function() { return stringToRubles; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toRubles", function() { return toRubles; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addZero", function() { return addZero; });
 function notif(message, parent, dur) {
     const box = document.querySelector(`${parent}`),
           notification = document.createElement('div');
@@ -5179,6 +5195,14 @@ function stringToRubles(inputSelector) {
 
 function toRubles(num) {
    return num.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
+}
+
+function addZero(n) {
+    if (n && n < 10) {
+        return `0${n}`;
+    } else {
+        return n;
+    }
 }
 
 

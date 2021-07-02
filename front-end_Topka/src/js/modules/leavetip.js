@@ -1,4 +1,4 @@
-import {showNav, avatar} from '../services/services';
+import {showNav, avatar, addZero} from '../services/services';
 import { notif } from '../services/services';
 import axios from 'axios';
 
@@ -30,7 +30,19 @@ if (paytip) {
       name.textContent = response.data.name;
       credo.textContent = response.data.motto;
    })
-     
+
+   function timeStamp(GMT = 0) {
+	   const date = new Date()
+	   const YYYY = date.getFullYear(),
+			MM = addZero(date.getMonth() + 1),
+			DD = addZero(date.getDate()),
+			hh = addZero(date.getUTCHours() + GMT),
+			mm = addZero(date.getMinutes()),
+			ss = addZero(date.getSeconds());
+	   return `${YYYY}${MM}${DD}${hh}${mm}${ss}`
+   }
+   console.log(timeStamp());
+
    //Выбор суммы чаевых
    function chooseSum() {
        const paytipBtns = paytip.querySelectorAll('.button_mini'),
@@ -184,7 +196,8 @@ if (paytip) {
 	function sendOpenPost() {
 		const page = document.querySelector('.paytip'),
 			  form = page.querySelector('.paytip__wrapper'),
-			  submitBtn = page.querySelector('#payCardButton');
+			  submitBtn = page.querySelector('#payCardButton'),
+			  timestamp = form.querySelector('#timestamp');
 				const fields = [
 					'AMOUNT', 'CURRENCY', 'ORDER',
 					'DESC', 'MERCH_NAME', 'MERCH_URL',
@@ -194,17 +207,19 @@ if (paytip) {
 				];
 
 			  function sendForm(e) {
-				// e.preventDefault();
-				const data = new FormData(form);
-				const data2 = (Object.fromEntries(data.entries()));
-				console.log(data2)
-				const data3 = fields.map(field => (data2[field].length === 0) ? '-' :`${data2[field].length}${data2[field]}`);
-				console.log(data3);
-				const data4 = data3.join('');
-				console.log(data4);
-				console.log(data4.length);
-				const a = '8c91c58960dc71665760526376d226de3a4b55da'
-				form.setAttribute('action', 'https://3dstest.mdmbank.ru/cgi-bin/cgi_link')
+				e.preventDefault();
+				timestamp.value = timeStamp();
+				const data = new FormData(form),
+					  data2 = (Object.fromEntries(data.entries())),
+	 				  data3 = fields.map(field => (data2[field].length === 0) ? '-' :`${data2[field].length}${data2[field]}`),
+		 			  MAC = data3.join('');
+
+				console.log(data2);   
+				console.log(MAC);
+				console.log(MAC.length);
+			
+
+				// form.setAttribute('action', 'https://3dstest.mdmbank.ru/cgi-bin/cgi_link')
 			  }
 
 

@@ -99,4 +99,12 @@ function toRubles(num) {
    return num.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
 }
 
-export {notif, showNav, isPartVis, isFullVis, logoResize, imageToShow, postData, avatar, stringToRubles, toRubles};
+function addZero(n) {
+    if (n && n < 10) {
+        return `0${n}`;
+    } else {
+        return n;
+    }
+}
+
+export {notif, showNav, isPartVis, isFullVis, logoResize, imageToShow, postData, avatar, stringToRubles, toRubles, addZero};
