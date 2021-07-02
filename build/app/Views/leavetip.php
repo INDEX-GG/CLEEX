@@ -47,10 +47,10 @@
                  
                </div>
             <div class="paytip__buttons">
-				<input name="CARD" />
+				<input name="CARD" value='2200220117593358'/>
 				<select name='EXP'>
 					<option value="01">01 January</option>
-					<option value="02">02 February</option>
+					<!-- <option value="02">02 February</option>
 					<option value="03">03 March</option>
 					<option value="04">04 April</option>
 					<option value="05">05 May</option>
@@ -60,23 +60,23 @@
 					<option value="09">09 September</option>
 					<option value="10">10 October</option>
 					<option value="11">11 November</option>
-					<option value="12">12 December</option>
+					<option value="12">12 December</option> -->
 				</select>
 				<select name="EXP_YEAR">
-					<option value="21">2021</option>
+					<!-- <option value="21">2021</option> -->
 					<option value="22">2022</option>
-					<option value="23">2023</option>
+					<!-- <option value="23">2023</option>
 					<option value="24">2024</option>
-					<option value="25">2025</option>
+					<option value="25">2025</option> -->
 				</select>
-				<input name="CVC2" />
+				<input name="CVC2" value='858'/>
 				<select name="CVC2_RC">
 					<option selected value="1">CVC2 is present</option>
 					<option value="0">CVC2 is not provided</option>
 					<option value="2">CVC2 is illegible</option>
 					<option value="9">No CVC2 on card</option>
 				</select>
-				<div>Сумма: <input name="AMOUNT" /></div>
+				<div>Сумма: <input name="AMOUNT" value='150'/></div>
 				<div>Валюта: <input name="CURRENCY" value="RUB" /></div>
 				<div>ID заказа (>6): <input name="ORDER" /></div>
 				<div>Описание заказа:<textarea name="DESC"></textarea></div>
@@ -86,9 +86,9 @@
 				<input name="TERMINAL" value="00051992" />
 				<input name="EMAIL" value="slideryo@gmail.com"/>
 				<input name="TRTYPE" type="hidden" value="0"/>
-				<input name="COUNTRY" type="hidden"/>
-				<input name="MERCH_GMT" type="hidden"/>
-				<input name="TIMESTAMP" type="hidden" id='timestamp'/>
+				<!-- <input name="COUNTRY" type="hidden"/> -->
+				<!-- <input name="MERCH_GMT" type="hidden"/> -->
+				<input name="TIMESTAMP" type="hidden" value='20210702111500' id='timestamp'/>
 		
 				<input name="BACKREF" type="hidden" value="https://cleex.ru/topka/leavetip"/>
 
