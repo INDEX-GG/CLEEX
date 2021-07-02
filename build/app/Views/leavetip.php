@@ -47,10 +47,10 @@
                  
                </div>
             <div class="paytip__buttons">
-				<input name="CARD" value='5543725660917340'/>
-				<select name='EXP'>
+				<!-- <input name="CARD" value='5543725660917340'/> -->
+				<!-- <select name='EXP'>
 					<option value="01">01 January</option>
-					<!-- <option value="02">02 February</option>
+					<option value="02">02 February</option>
 					<option value="03">03 March</option>
 					<option value="04">04 April</option>
 					<option value="05">05 May</option>
@@ -60,39 +60,39 @@
 					<option value="09">09 September</option>
 					<option value="10">10 October</option>
 					<option value="11">11 November</option>
-					<option value="12">12 December</option> -->
-				</select>
-				<select name="EXP_YEAR">
-					<!-- <option value="21">2021</option> -->
+					<option value="12">12 December</option>
+				</select> -->
+				<!-- <select name="EXP_YEAR">
+					<option value="21">2021</option>
 					<option value="22">2022</option>
-					<!-- <option value="23">2023</option>
+					<option value="23">2023</option>
 					<option value="24">2024</option>
-					<option value="25">2025</option> -->
-				</select>
-				<input name="CVC2" value='087'/>
+					<option value="25">2025</option>
+				</select> -->
+				<!-- <input name="CVC2" value='087'/>
 				<select name="CVC2_RC">
 					<option selected value="1">CVC2 is present</option>
 					<option value="0">CVC2 is not provided</option>
 					<option value="2">CVC2 is illegible</option>
 					<option value="9">No CVC2 on card</option>
-				</select>
-				<div>Сумма: <input name="AMOUNT" value='150.56'/></div>
+				</select> -->
+				<div>Сумма: <input name="AMOUNT" type='text' value='150.56'/></div>
 				<div>Валюта: <input name="CURRENCY" value="RUB" /></div>
-				<div>ID заказа (>6): <input name="ORDER" value='45654654654654' /></div>
+				<div>ID заказа (>6): <input name="ORDER" value='4565465465654' /></div>
 				<div>Описание заказа:<input name="DESC" value="TESTPAY" /></div>
 				<input name="MERCH_NAME" value="CLEEX" />
-				<input name="MERCH_TOKEN_ID" value="000000000051992" />
-				<input name="MERCHANT" value="000000000051992" />
+				<!-- <input name="MERCH_TOKEN_ID" value="000000000051992" /> -->
 				<input name="MERCH_URL" value="https://cleex.ru/topka/leavetip"/>
+				<input name="MERCHANT" value="000000000051992" />
 				<input name="TERMINAL" value="00051992" />
 				<input name="EMAIL" value="slideryo@gmail.com"/>
-				<input name="TRTYPE" type="hidden" value=""/>
+				<input name="TRTYPE" type="hidden" value="0"/>
 				<input name="COUNTRY" type="hidden" value=''/>
 				<input name="MERCH_GMT" type="hidden" value=''/>
-				<input name="TIMESTAMP" type="hidden" value='20210702080700' id='timestamp'/>
-				<input name="NONCE" type="hidden" value='0E2E2F0E2F190E2E210E2E1B0E2E1E0E2F1B140E2E2C0E2E210E2F19'/>
+				<input name="TIMESTAMP" type="hidden" id='timestamp'/>
+				<input name="NONCE" type="hidden" id='nonce'/>
 				<input name="BACKREF" type="hidden" value="https://cleex.ru/topka/leavetip"/>
-				<input name='P_SIGN' type='hidden' value='3a7359a19af06bc9a986861027b973910cfb4946'/>
+				<input name='P_SIGN' type='hidden' id='psign'/>
                 <button class="button_pay" type="submit" name='SEND_BUTTON' id='payCardButton'><div>Оплатить картой</div><img src="./topkatpl/img/credit-card.svg"/></button>
                 <div id="container"></div>
             </div>
