@@ -78,9 +78,9 @@
 				</select> -->
 				<div>Сумма: <input name="AMOUNT" type='text' value='150.56'/></div>
 				<div>Валюта: <input name="CURRENCY" value="RUB" /></div>
-				<div>ID заказа (>6): <input name="ORDER" value='456546565652504' /></div>
+				<div>ID заказа (>6): <input name="ORDER" value='45654656565256504' /></div>
 				<div>Описание заказа:<input name="DESC" value="TESTPAY" /></div>
-				<!-- <input name="MERCH_NAME" value="CLEEX" /> -->
+				<input name="MERCH_NAME" value="CLEEX" />
 				<!-- <input name="MERCH_TOKEN_ID" value="000000000051992" /> -->
 				<input name="MERCH_URL" value="https://cleex.ru"/>
 				<input name="MERCHANT" value="000000000051992" />

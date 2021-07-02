@@ -4291,8 +4291,8 @@ if (paytip) {
 	   return `${YYYY}${MM}${DD}${hh}${mm}${ss}`
    }
 
-   let token = '';
-   axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/hashGen').then(res => token = res.data.token).catch(err => console.error(err));
+   let token = 'testkeyecom19';
+//    axios.get('/hashGen').then(res => token = res.data.token).catch(err => console.error(err));
 
    //Выбор суммы чаевых
    function chooseSum() {
@@ -4454,21 +4454,11 @@ if (paytip) {
 			  resof = form.querySelector('#resultof');
 
 		const fields = [
-			'AMOUNT',
-			'CURRENCY',
-			'ORDER',
-			'DESC', 
-			// 'MERCH_NAME', 
-			'MERCH_URL',
-			'MERCHANT', 
-			'TERMINAL', 
-			'EMAIL',
-			'TRTYPE', 
-			'COUNTRY', 
-			'MERCH_GMT',
 			'TIMESTAMP', 
 			'NONCE', 
-			'BACKREF'
+			'AMOUNT',
+			'ORDER',
+			'TERMINAL'
 		];
 
 			  function sendForm(e) {
