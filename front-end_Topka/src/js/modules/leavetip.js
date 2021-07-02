@@ -211,7 +211,7 @@ if (paytip) {
 			'DESC', 
 			'MERCH_NAME', 
 			'MERCH_URL',
-			// 'MERCHANT', 
+			'MERCHANT', 
 			'TERMINAL', 
 			'EMAIL',
 			'TRTYPE', 

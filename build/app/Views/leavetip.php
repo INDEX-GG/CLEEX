@@ -47,7 +47,7 @@
                  
                </div>
             <div class="paytip__buttons">
-				<input name="CARD"/>
+				<!-- <input name="CARD"/>
 				<select name='EXP'>
 					<option value="01">01 January</option>
 					<option value="02">02 February</option>
@@ -75,20 +75,20 @@
 					<option value="0">CVC2 is not provided</option>
 					<option value="2">CVC2 is illegible</option>
 					<option value="9">No CVC2 on card</option>
-				</select>
+				</select> -->
 				<div>Сумма: <input name="AMOUNT" type='text' value='150.56'/></div>
 				<div>Валюта: <input name="CURRENCY" value="RUB" /></div>
-				<div>ID заказа (>6): <input name="ORDER" value='4565465465654' /></div>
+				<div>ID заказа (>6): <input name="ORDER" value='456546565652504' /></div>
 				<div>Описание заказа:<input name="DESC" value="TESTPAY" /></div>
-				<input name="MERCH_NAME" value="CLEEX" />
+				<!-- <input name="MERCH_NAME" value="CLEEX" /> -->
 				<!-- <input name="MERCH_TOKEN_ID" value="000000000051992" /> -->
 				<input name="MERCH_URL" value="https://cleex.ru"/>
-				<!-- <input name="MERCHANT" value="000000000051992" /> -->
+				<input name="MERCHANT" value="000000000051992" />
 				<input name="TERMINAL" value="00051992" />
 				<input name="EMAIL" value="slideryo@gmail.com"/>
 				<input name="TRTYPE" type="hidden" value="0"/>
 				<input name="COUNTRY" type="hidden" value=''/>
-				<input name="MERCH_GMT" type="hidden" value='5'/>
+				<input name="MERCH_GMT" type="hidden" value='+3'/>
 				<input name="TIMESTAMP" type="hidden" id='timestamp'/>
 				<input name="NONCE" type="hidden" id='nonce'/>
 				<input name="BACKREF" type="hidden" value="https://cleex.ru/leavetip"/>
