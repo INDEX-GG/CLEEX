@@ -4450,14 +4450,25 @@ if (paytip) {
 			  submitBtn = page.querySelector('#payCardButton'),
 			  timestamp = form.querySelector('#timestamp'),
 			  nonce = form.querySelector('#nonce'),
-			  psign = form.querySelector('#psign');
+			  psign = form.querySelector('#psign'),
+			  resof = form.querySelector('#resultof');
 
 		const fields = [
-			'AMOUNT', 'CURRENCY', 'ORDER',
-			'DESC', 'MERCH_NAME', 'MERCH_URL',
-			'MERCHANT', 'TERMINAL', 'EMAIL',
-			'TRTYPE', 'COUNTRY', 'MERCH_GMT',
-			'TIMESTAMP', 'NONCE', 'BACKREF'
+			'AMOUNT',
+			'CURRENCY',
+			'ORDER',
+			'DESC', 
+			'MERCH_NAME', 
+			'MERCH_URL',
+			// 'MERCHANT', 
+			'TERMINAL', 
+			'EMAIL',
+			'TRTYPE', 
+			'COUNTRY', 
+			'MERCH_GMT',
+			'TIMESTAMP', 
+			'NONCE', 
+			'BACKREF'
 		];
 
 			  function sendForm(e) {
@@ -4480,6 +4491,7 @@ if (paytip) {
 				console.log(sendData);
 				axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/h1gen', sendData).then(res => {
 					psign.value = res.data.result;
+					resof.textContent = res.data.result;
 				});
 
 				//  form.setAttribute('action', 'https://3dstest.mdmbank.ru/cgi-bin/cgi_link')
