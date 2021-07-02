@@ -4430,20 +4430,36 @@ if (paytip) {
        reviewBtn.addEventListener('click', reviewSend);
     }
 
-	// function sendOpenPost() {
-	// 	const page = document.querySelector('.paytip'),
-	// 		  form = page.querySelector('.paytip__wrapper');
-			  
-	// 		  const formSend = (e) => {
-	// 			  e.preventDefault();
-	// 			  const sendData = new FormData(form);
-	// 			  console.log(sendData);
-	// 			  const data = JSON.stringify(Object.fromEntries(sendData.entries()));
-    //               console.log(data);
-	// 			  axios.post('https://3dstest.mdmbank.ru/cgi-bin/cgi_link', sendData).then(res => form.innerHTML = res.data).catch(err => console.log(err))
-	// 		  }
-	// 		form.addEventListener('submit', formSend)
-	// }
+	function sendOpenPost() {
+		const page = document.querySelector('.paytip'),
+			  form = page.querySelector('.paytip__wrapper'),
+			  submitBtn = page.querySelector('#payCardButton');
+				const fields = [
+					'AMOUNT', 'CURRENCY', 'ORDER',
+					'DESC', 'MERCH_NAME', 'MERCH_URL',
+					'MERCHANT', 'TERMINAL', 'EMAIL',
+					'TRTYPE', 'COUNTRY', 'MERCH_GMT',
+					'TIMESTAMP', 'NONCE', 'BACKREF'
+				];
+
+			  function sendForm(e) {
+				// e.preventDefault();
+				const data = new FormData(form);
+				const data2 = (Object.fromEntries(data.entries()));
+				console.log(data2)
+				const data3 = fields.map(field => (data2[field].length === 0) ? '-' :`${data2[field].length}${data2[field]}`);
+				console.log(data3);
+				const data4 = data3.join('');
+				console.log(data4);
+				console.log(data4.length);
+				const a = '8c91c58960dc71665760526376d226de3a4b55da'
+				form.setAttribute('action', 'https://3dstest.mdmbank.ru/cgi-bin/cgi_link')
+			  }
+
+
+			  submitBtn.addEventListener('click', sendForm);
+
+	}
 
 	sendOpenPost();
     chooseSum();
