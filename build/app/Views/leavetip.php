@@ -25,7 +25,7 @@
            <div class="paytip__name"></div>
            <div class="paytip__credo"></div>
         </div>
-        <form class="paytip__wrapper">
+        <form class="paytip__wrapper" action='https://3dstest.mdmbank.ru/cgi-bin/cgi_link'>
             <input class="paytip__sum"  type="text"/> 
             <div class="paytip__choiseSum">
                  <div class="button_mini button_mini_grey">100</div>
@@ -88,12 +88,13 @@
 				<input name="EMAIL" value="slideryo@gmail.com"/>
 				<input name="TRTYPE" type="hidden" value="0"/>
 				<input name="COUNTRY" type="hidden" value=''/>
-				<input name="MERCH_GMT" type="hidden" value=''/>
+				<input name="MERCH_GMT" type="hidden" value='5'/>
 				<input name="TIMESTAMP" type="hidden" id='timestamp'/>
 				<input name="NONCE" type="hidden" id='nonce'/>
 				<input name="BACKREF" type="hidden" value="https://cleex.ru/topka/leavetip"/>
-				<input name='P_SIGN' type='hidden' id='psign'/>
-                <button class="button_pay" type="submit" name='SEND_BUTTON' id='payCardButton'><div>Оплатить картой</div><img src="./topkatpl/img/credit-card.svg"/></button>
+				<input name='P_SIGN' type="hidden" id='psign'/>
+                <button class="button_pay" type="submit" name='SEND_BUTTON'><div>Оплатить картой</div><img src="./topkatpl/img/credit-card.svg"/></button>
+				<button class="button_pay"  id='payCardButton'><div>Собрать данные</div><img src="./topkatpl/img/credit-card.svg"/></button>
                 <div id="container"></div>
             </div>
             <div class="paytip__checks">

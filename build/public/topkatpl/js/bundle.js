@@ -4290,7 +4290,9 @@ if (paytip) {
 			ss = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["addZero"])(date.getSeconds());
 	   return `${YYYY}${MM}${DD}${hh}${mm}${ss}`
    }
-   console.log(timeStamp());
+
+   let token = '';
+   axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/hashGen').then(res => token = res.data.token).catch(err => console.error(err));
 
    //Выбор суммы чаевых
    function chooseSum() {
@@ -4446,18 +4448,23 @@ if (paytip) {
 		const page = document.querySelector('.paytip'),
 			  form = page.querySelector('.paytip__wrapper'),
 			  submitBtn = page.querySelector('#payCardButton'),
-			  timestamp = form.querySelector('#timestamp');
-				const fields = [
-					'AMOUNT', 'CURRENCY', 'ORDER',
-					'DESC', 'MERCH_NAME', 'MERCH_URL',
-					'MERCHANT', 'TERMINAL', 'EMAIL',
-					'TRTYPE', 'COUNTRY', 'MERCH_GMT',
-					'TIMESTAMP', 'NONCE', 'BACKREF'
-				];
+			  timestamp = form.querySelector('#timestamp'),
+			  nonce = form.querySelector('#nonce'),
+			  psign = form.querySelector('#psign');
+
+		const fields = [
+			'AMOUNT', 'CURRENCY', 'ORDER',
+			'DESC', 'MERCH_NAME', 'MERCH_URL',
+			'MERCHANT', 'TERMINAL', 'EMAIL',
+			'TRTYPE', 'COUNTRY', 'MERCH_GMT',
+			'TIMESTAMP', 'NONCE', 'BACKREF'
+		];
 
 			  function sendForm(e) {
 				e.preventDefault();
 				timestamp.value = timeStamp();
+				nonce.value = token;
+
 				const data = new FormData(form),
 					  data2 = (Object.fromEntries(data.entries())),
 	 				  data3 = fields.map(field => (data2[field].length === 0) ? '-' :`${data2[field].length}${data2[field]}`),
@@ -4466,9 +4473,16 @@ if (paytip) {
 				console.log(data2);   
 				console.log(MAC);
 				console.log(MAC.length);
-			
+				let sendData = JSON.stringify({
+					data: MAC,
+					token: token
+				});
+				console.log(sendData);
+				axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/h1gen', sendData).then(res => {
+					psign.value = res.data.result;
+				});
 
-				// form.setAttribute('action', 'https://3dstest.mdmbank.ru/cgi-bin/cgi_link')
+				//  form.setAttribute('action', 'https://3dstest.mdmbank.ru/cgi-bin/cgi_link')
 			  }
 
 
