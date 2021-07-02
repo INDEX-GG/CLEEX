@@ -209,7 +209,7 @@ if (paytip) {
 			'CURRENCY',
 			'ORDER',
 			'DESC', 
-			'MERCH_NAME', 
+			// 'MERCH_NAME', 
 			'MERCH_URL',
 			'MERCHANT', 
 			'TERMINAL', 
