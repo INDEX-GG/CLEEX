@@ -852,6 +852,11 @@ h2 {
   text-transform: uppercase;
 }
 
+#loading {
+  width: 33px;
+  display: none;
+}
+
 .wrapper {
   width: 100%;
   height: 100%;
@@ -1227,6 +1232,10 @@ h2 {
 
 .paytip__checks > * {
   margin: 8px 0;
+}
+
+#toPay {
+  display: none;
 }
 
 .kitchen,

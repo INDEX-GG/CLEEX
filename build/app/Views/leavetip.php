@@ -25,7 +25,7 @@
            <div class="paytip__name"></div>
            <div class="paytip__credo"></div>
         </div>
-        <form class="paytip__wrapper" action='https://3dstest.mdmbank.ru/cgi-bin/cgi_link'>
+        <form class="paytip__wrapper" action='https://egwtest.open.ru/cgi-bin/cgi_link'>
             <input class="paytip__sum"  type="text"/> 
             <div class="paytip__choiseSum">
                  <div class="button_mini button_mini_grey">100</div>
@@ -76,26 +76,34 @@
 					<option value="2">CVC2 is illegible</option>
 					<option value="9">No CVC2 on card</option>
 				</select> -->
-				<div>Сумма: <input name="AMOUNT" type='text' value='150.56'/></div>
-				<div>Валюта: <input name="CURRENCY" value="RUB" /></div>
-				<div>ID заказа (>6): <input name="ORDER" value='45654656565256504' /></div>
-				<div>Описание заказа:<input name="DESC" value="TESTPAY" /></div>
-				<input name="MERCH_NAME" value="CLEEX" />
+				<input name="AMOUNT" id='amount' type='hidden' value='150.56'/>
+				<input type='hidden' name="CURRENCY" value="RUB" />
+				<input name="ORDER" id="orderId" type='hidden' />
+				<input name="DESC" value="Tips" type='hidden'/>
+				<input name="MERCH_NAME" value="CLEEX" type='hidden'/>
 				<!-- <input name="MERCH_TOKEN_ID" value="000000000051992" /> -->
-				<input name="MERCH_URL" value="https://cleex.ru"/>
-				<input name="MERCHANT" value="000000000051992" />
-				<input name="TERMINAL" value="00051992" />
-				<input name="EMAIL" value="slideryo@gmail.com"/>
-				<input name="TRTYPE" type="hidden" value="0"/>
+				<input name="MERCH_URL" value="https://cleex.ru" type='hidden'/>
+				<input name="MERCHANT" value="000000000070172" type='hidden'/>
+				<input name="TERMINAL" value="00070172" type='hidden'/>
+				<input name="EMAIL" value="slideryo@gmail.com" type='hidden'/>
+				<input name="TRTYPE" type="hidden" value="8"/>
+
+				<!-- <input name="PAYMENT_TO" TYPE="HIDDEN" VALUE="2200220117593358" /> -->
+
+				<!-- <input TYPE="HIDDEN" NAME="CONFIRM_ID" VALUE="%118"/>
+ 				<input TYPE="HIDDEN" NAME="CONFIRM" VALUE="Y"/> -->
+
 				<input name="COUNTRY" type="hidden" value=''/>
 				<input name="MERCH_GMT" type="hidden" value='+3'/>
 				<input name="TIMESTAMP" type="hidden" id='timestamp'/>
 				<input name="NONCE" type="hidden" id='nonce'/>
 				<input name="BACKREF" type="hidden" value="https://cleex.ru/leavetip"/>
 				<input name='P_SIGN' type="hidden" id='psign'/>
-				<button class="button_pay" type="submit" name='SEND_BUTTON'><div>Оплатить картой</div><img src="./topkatpl/img/credit-card.svg"/></button>
-				<div id='resultof'></div>
-				<button class="button_pay"  id='payCardButton'><div>Собрать данные</div><img src="./topkatpl/img/credit-card.svg"/></button>
+
+				<button class="button_pay" id='toPay' type="submit" name='SEND_BUTTON'><div>Оплатить</div><img src="./topkatpl/img/credit-card.svg"/></button>
+				<!-- <div id='resultof'></div> -->
+				<button class="button_pay"  id='payCardButton'><div>Оплатить картой</div><img id='cardIcon' src="./topkatpl/img/credit-card.svg"/><img id='loading' src="./topkatpl/img/loading.svg"/></button>
+				
                 <div id="container"></div>
             </div>
             <div class="paytip__checks">

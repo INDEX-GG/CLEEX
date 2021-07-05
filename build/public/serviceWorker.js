@@ -10,7 +10,8 @@ self.addEventListener('push', function (event) {
 
         return self.registration.showNotification(title, {
             body,
-            icon: '/cleextpl/logo192.png'
+            icon: '/cleextpl/logo192.png',
+			renotify: true
         });
     };
 

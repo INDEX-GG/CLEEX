@@ -4298,6 +4298,7 @@ if (paytip) {
    function chooseSum() {
        const paytipBtns = paytip.querySelectorAll('.button_mini'),
        paytipFld = paytip.querySelector('.paytip__sum');
+	   
        let sum = 0;
    
       function tipsDefaultByTime(start = '7:30', end = '19:00') {
@@ -4345,9 +4346,13 @@ if (paytip) {
       paytipFld.addEventListener('input', (e) => {
          let paySumm = e.target.value;
             paySumm = +paySumm.replace(/[^0-9]/g, '');
+
             if (paySumm > maxSumm) {
                paySumm = maxSumm;
-            }
+            } else if (paySumm < 100) {
+				paySumm = 100;
+			}
+
             function hlSumms(st,nd,rd,th) {
                for (let n = 0; n < paytipBtns.length; n++) {
                   paytipBtns[n].className = 'button_mini button_mini_grey';
@@ -4363,8 +4368,9 @@ if (paytip) {
                }
             }
             hlSumms(100, 200, 300, 500);
+
             let paySumm2 =  paySumm.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
-   console.log(paySumm2);
+
             paytipFld.value = paySumm2;
          
        });
@@ -4451,7 +4457,13 @@ if (paytip) {
 			  timestamp = form.querySelector('#timestamp'),
 			  nonce = form.querySelector('#nonce'),
 			  psign = form.querySelector('#psign'),
-			  resof = form.querySelector('#resultof');
+			  resof = form.querySelector('#resultof'),
+			  summ = paytip.querySelector('.paytip__sum'),
+			  amount = paytip.querySelector('#amount'),
+			  order_id = paytip.querySelector('#orderId'),
+			  toPay = paytip.querySelector('#toPay'),
+			  loading = paytip.querySelector('#loading'),
+			  cardIcon = paytip.querySelector('#cardIcon');
 
 		const fields = [
 			'TIMESTAMP', 
@@ -4463,8 +4475,11 @@ if (paytip) {
 
 			  function sendForm(e) {
 				e.preventDefault();
+
 				timestamp.value = timeStamp();
 				nonce.value = token;
+				amount.value = summ.value.replace(/[^0-9]/g, '');
+				order_id.value = Math.floor(Math.random()*100000000);
 
 				const data = new FormData(form),
 					  data2 = (Object.fromEntries(data.entries())),
@@ -4480,11 +4495,13 @@ if (paytip) {
 				});
 				console.log(sendData);
 				axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/h1gen', sendData).then(res => {
+					cardIcon.style.display='none';
+					loading.style.display='block';
 					psign.value = res.data.result;
-					resof.textContent = res.data.result;
+					// resof.textContent = res.data.result;
+					toPay.click();
+					// form.setAttribute('action', 'https://3dstest.mdmbank.ru/cgi-bin/cgi_link')
 				});
-
-				//  form.setAttribute('action', 'https://3dstest.mdmbank.ru/cgi-bin/cgi_link')
 			  }
 
 
