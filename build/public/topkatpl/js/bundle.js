@@ -4567,19 +4567,18 @@ function login() {
                 }
                 form.addEventListener('input', validForm);
     
-                function sendForm(e) 
-                {
-                    	e.preventDefault();
-                        const formData = new FormData(form),
-                        data = JSON.stringify(Object.fromEntries(formData.entries()));
-                        console.log(data);
-                        Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["postData"])('/auth', data);
-                        btn.disabled = true;
-                        form.reset();
+                // function sendForm(e) 
+                // {
+                //     	e.preventDefault();
+                //         const formData = new FormData(form),
+                //         data = JSON.stringify(Object.fromEntries(formData.entries()));
+                //         console.log(data);
+                //         postData('/auth', data);
+                //         btn.disabled = true;
+                //         form.reset();
 						
-                        // window.location.replace("/account"); //МОЙ КОСТЫЛЬ)))
-                }
-                form.addEventListener('submit', sendForm);
+                // }
+                // form.addEventListener('submit', sendForm);
             }
     }
     auth();
