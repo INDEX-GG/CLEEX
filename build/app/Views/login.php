@@ -21,7 +21,7 @@
       <div class='logo'>
         <img src="./topkatpl/img/logo.svg" alt='Лого'/>
      </div>
-     <form class="login" >
+     <form class="login" action='/auth' method='POST' >
          <div class="login__wrapper">
             <input class="login__name" name="login" placeholder="логин" type="text" maxlength="25"/>
             <div class="login__password">
@@ -29,7 +29,8 @@
                 <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
                 <button class="login__pass__vis"><img src="./topkatpl/img/invis.svg" /></button>
             </div>
-            <button disabled=true class="login__button button button_blue" type="submit">Вход</button>
+            <button class="login__button button button_blue" type="submit">Вход</button>
+			<button href='./account' id="loginBtn" type="submit">акк</button>
         </div>
       </form>
    </div>
