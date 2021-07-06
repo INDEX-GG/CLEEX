@@ -38,14 +38,15 @@ function login() {
     
                 function sendForm(e) 
                 {
-                    e.preventDefault();
+                    	e.preventDefault();
                         const formData = new FormData(form),
                         data = JSON.stringify(Object.fromEntries(formData.entries()));
                         console.log(data);
-                         postData('/auth', data);
+                        postData('/auth', data);
                         btn.disabled = true;
                         form.reset();
-                        window.location.replace("/account"); //МОЙ КОСТЫЛЬ)))
+						
+                        // window.location.replace("/account"); //МОЙ КОСТЫЛЬ)))
                 }
                 form.addEventListener('submit', sendForm);
             }
