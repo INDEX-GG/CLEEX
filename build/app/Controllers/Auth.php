@@ -28,7 +28,7 @@ class Auth extends BaseController
 
         }
 
-        return view('account');  //Стоит фильтр Account, если пользователя не существует, его редиректнет на /login
+        return view("account");  //Стоит фильтр Account, если пользователя не существует, его редиректнет на /login
 
     }
 
