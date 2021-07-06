@@ -25,8 +25,8 @@ class App extends BaseConfig
 	 *	public $baseURL = 'http://localhost:8080/';
 	 *  public $baseURL = 'https://cleex.ru/';
 	 */
-	// public $baseURL = 'https://cleex.ru/';
-    public $baseURL = 'http://localhost:8080/';
+	public $baseURL = 'https://cleex.ru/';
+    // public $baseURL = 'http://localhost:8080/';
 	/**
 	 * --------------------------------------------------------------------------
 	 * Index File

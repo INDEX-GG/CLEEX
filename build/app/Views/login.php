@@ -30,7 +30,6 @@
                 <button class="login__pass__vis"><img src="./topkatpl/img/invis.svg" /></button>
             </div>
             <button class="login__button button button_blue" type="submit">Вход</button>
-			<button href='./account' id="loginBtn" type="submit">акк</button>
         </div>
       </form>
    </div>
