@@ -6,13 +6,25 @@ import menu from './modules/menu';
 import profile from './modules/profile';
 import chooseTables from './modules/tables';
 import barman from './modules/barman';
+import reviews from './modules/reviews';
+import chooseSum from './modules/chooseSum';
+
+const amount = [100, 200, 300, 500], // Предустановленные суммы чаевых
+	commission = 0.05, // 5%
+	cmmssnChsn = true, // Коммиссия начисляется сразу
+	start = '9:30', // Начало низкого сезона
+	end = '17:00',	// Конец  низкого сезона
+	min = 50,	// Минимальная сумма чаевых
+	max = 9999; // Максимальная сумма чаевых
 
 document.addEventListener('DOMContentLoaded', function () {
     call();
     menu();
     login();
     profile();
-    leavetip('11:00', '16:00', 9999); // Начало / Конец дня / максимальная сумма
+    leavetip();
     chooseTables();
     barman();
+	reviews();
+	chooseSum(amount, commission, cmmssnChsn, start, end, min, max)
 });

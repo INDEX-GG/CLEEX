@@ -107,4 +107,15 @@ function addZero(n) {
     }
 }
 
-export {notif, showNav, isPartVis, isFullVis, logoResize, imageToShow, postData, avatar, stringToRubles, toRubles, addZero};
+function timeStamp(GMT = 0) {
+	const date = new Date()
+	const YYYY = date.getFullYear(),
+		 MM = addZero(date.getMonth() + 1),
+		 DD = addZero(date.getDate()),
+		 hh = addZero(date.getUTCHours() + GMT),
+		 mm = addZero(date.getMinutes()),
+		 ss = addZero(date.getSeconds());
+	return `${YYYY}${MM}${DD}${hh}${mm}${ss}`
+}
+
+export {notif, showNav, isPartVis, isFullVis, logoResize, imageToShow, postData, avatar, stringToRubles, toRubles, addZero, timeStamp};

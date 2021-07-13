@@ -4235,6 +4235,186 @@ function call() {
 
 /***/ }),
 
+/***/ "./src/js/modules/chooseSum.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/chooseSum.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+function chooseSum(amount, commission, cmmssnChsn, start, end, min, max) {
+	const paytip = document.querySelector('.paytip'),
+		  amountBox = amount;
+	if (paytip) {
+
+		//Элементы
+		const amounts = paytip.querySelectorAll('.button_mini'),
+			  inputSum = paytip.querySelector('.paytip__sum'),
+			  cmmssnChck = paytip.querySelector('#comission'),
+			  cmmssnTxt = paytip.querySelector('#comText');
+
+		//Предопределение активности чекбокса комиссии
+		cmmssnChck.checked = cmmssnChsn;
+
+		//Предопределение размера комиссии
+		cmmssnTxt.textContent = `Я хочу взять на себя комиссию сотрудника (${commission * 100}%)`;
+		function changeSummsByComm(num = 0) {
+			if (num == 0) {
+				amount = amountBox;
+			} else {
+				amount = amount.map(sum => Math.round(sum * (1 + num)));
+			}
+		} 
+		if (cmmssnChck.checked) {
+			changeSummsByComm(commission);
+		}
+		
+		//Предопределенные суммы - присвоение
+		function btnsSumsRender() {
+			amounts.forEach((sum, i) => sum.textContent = amount[i]);
+		}
+		
+		//Присвоение значения полю ввода
+		function sumRender(str) {
+			str = +str;
+			inputSum.value = str.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
+		}
+
+		//Рендер суммы в поле ввода, в зависмости от нажатой кнопки
+		function sumRenderByClckdBtn(){
+			amounts.forEach(sum => {
+				if (sum.classList.contains('button_mini_blue')) {
+					sumRender(sum.textContent);
+				} 
+			})
+		}
+
+		//Подсветка кнопки при совпадении суммы в поле ввода
+		function highlightSumms(st,nd,rd,th) {
+			let paySumm = inputSum.value.replace(/\D+/g,"");
+			for (let n = 0; n < amounts.length; n++) {
+				amounts[n].className = 'button_mini button_mini_grey';
+			}
+			if (paySumm == st) {
+			   amounts[0].className = 'button_mini button_mini_blue';
+			} else if (paySumm == nd) {
+				amounts[1].className = 'button_mini button_mini_blue';
+			} else if (paySumm == rd) {
+				amounts[2].className = 'button_mini button_mini_blue';
+			} else if (paySumm == th) {
+				amounts[3].className = 'button_mini button_mini_blue';
+			}
+		}
+
+		//Выбор суммы чаевых по умолчанию в зависимости от временного промежутка
+		function tipsDefaultByTime(start = '7:30', end = '16:55') {
+			function setHour(time) {
+			   let hours = time.slice(0, time.indexOf(':'));
+			   if (hours[0] == 0) {
+				  return hours.slice(1);
+			   } else {
+				  return hours;
+			   }
+			}
+			function setMinute(time) {
+			   let mins = time.slice(time.indexOf(':') + 1);
+			   if (mins[0] == 0) {
+				  return mins.slice(1);
+			   } else {
+				  return mins;
+			   }
+			}
+			let currentTime = new Date(),
+			   startTime = new Date(),
+			   endTime = new Date();
+			   startTime.setHours(setHour(start));
+			   startTime.setMinutes(setMinute(start));
+			   startTime.setSeconds(0);
+			   endTime.setHours(setHour(end));
+			   endTime.setMinutes(setMinute(end));
+			   endTime.setSeconds(0);
+			   if (currentTime > startTime && currentTime < endTime) {
+					return amounts[0];
+			   } else {
+					return amounts[3];
+			   }
+		 }
+
+		//Выбор суммы чаевых кнопками со значением по умолчанию
+		function chooseSumByBtns(dflt = tipsDefaultByTime(start, end)) {
+
+			//Значение по умолчанию
+			dflt.className = 'button_mini button_mini_blue';
+			sumRender(dflt.textContent);
+
+			//Выбор по нажатию
+			amounts.forEach((sum, i) => {
+				sum.addEventListener('click', () => {
+					amounts.forEach((itm, n) => {
+						if (n === i) {
+							sum.className = 'button_mini button_mini_blue';
+							sumRender(sum.textContent);
+						} else {
+							itm.className = 'button_mini button_mini_grey'
+						}
+					})
+				})
+			})
+		}
+
+		//Выбор оплаты с комиссией или без
+		function commissionHandle() {
+			cmmssnChck.addEventListener('change', (e) => {
+				if (e.target.checked) {
+					changeSummsByComm(commission);
+					btnsSumsRender();
+					sumRenderByClckdBtn();
+					highlightSumms(...amount);
+				} else {
+					changeSummsByComm();
+					btnsSumsRender();
+					sumRenderByClckdBtn();
+					highlightSumms(...amount);
+				}
+			})
+		}
+
+		//Обработка ввода в поле с минимальной и максимальной суммой
+		function enterSum(min = 100, max = 15000) {
+			inputSum.addEventListener('input', (e) => {
+				let paySumm = e.target.value;
+				paySumm = +paySumm.replace(/[^0-9]/g, '');
+				if (paySumm < min) {
+					paySumm = min;
+				} else if (paySumm > max) {
+					paySumm = max;
+				}
+				 highlightSumms(...amount);
+				e.target.value = paySumm.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
+			});
+			inputSum.addEventListener('keydown', (e) => {
+				if (e.key === 'Backspace') {
+					return e.target.selectionEnd = e.target.selectionEnd - 2;
+				 }
+			})
+		}
+
+		//Запуск
+		enterSum(min, max);
+		btnsSumsRender();
+		chooseSumByBtns();
+		commissionHandle();
+	}
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (chooseSum);
+
+/***/ }),
+
 /***/ "./src/js/modules/leavetip.js":
 /*!************************************!*\
   !*** ./src/js/modules/leavetip.js ***!
@@ -4250,8 +4430,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-function leavetip(start, end, maxSumm) { 
+function leavetip() { 
     const paytip = document.querySelector('.paytip');
    
 if (paytip) {
@@ -4279,241 +4458,7 @@ if (paytip) {
       name.textContent = response.data.name;
       credo.textContent = response.data.motto;
    })
-
-   function timeStamp(GMT = 0) {
-	   const date = new Date()
-	   const YYYY = date.getFullYear(),
-			MM = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["addZero"])(date.getMonth() + 1),
-			DD = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["addZero"])(date.getDate()),
-			hh = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["addZero"])(date.getUTCHours() + GMT),
-			mm = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["addZero"])(date.getMinutes()),
-			ss = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["addZero"])(date.getSeconds());
-	   return `${YYYY}${MM}${DD}${hh}${mm}${ss}`
-   }
-
-   let token = 'testkeyecom19';
-//    axios.get('/hashGen').then(res => token = res.data.token).catch(err => console.error(err));
-
-   //Выбор суммы чаевых
-   function chooseSum() {
-       const paytipBtns = paytip.querySelectorAll('.button_mini'),
-       paytipFld = paytip.querySelector('.paytip__sum');
-	   
-       let sum = 0;
-   
-      function tipsDefaultByTime(start = '7:30', end = '19:00') {
-         function setHour(time) {
-            let hours = time.slice(0, time.indexOf(':'));
-            if (hours[0] == 0) {
-               return hours.slice(1);
-            } else {
-               return hours;
-            }
-         }
-         function setMinute(time) {
-            let mins = time.slice(time.indexOf(':') + 1);
-            if (mins[0] == 0) {
-               return mins.slice(1);
-            } else {
-               return mins;
-            }
-         }
-         let currentTime = new Date(),
-            startTime = new Date(),
-            endTime = new Date();
-            startTime.setHours(setHour(start));
-            startTime.setMinutes(setMinute(start));
-            startTime.setSeconds(0);
-            endTime.setHours(setHour(end));
-            endTime.setMinutes(setMinute(end));
-            endTime.setSeconds(0);
-            if (currentTime > startTime && currentTime < endTime) {
-               sum = 100;
-               for (let n = 0; n < paytipBtns.length; n++) {
-                  paytipBtns[n].className = 'button_mini button_mini_grey';
-                  paytipBtns[0].className = 'button_mini button_mini_blue';
-               }
-            } else {
-               sum = 500;
-               for (let n = 0; n < paytipBtns.length; n++) {
-                  paytipBtns[n].className = 'button_mini button_mini_grey';
-                  paytipBtns[3].className = 'button_mini button_mini_blue';
-               }
-            }
-      }
-      tipsDefaultByTime(start, end);
-      
-      paytipFld.addEventListener('input', (e) => {
-         let paySumm = e.target.value;
-            paySumm = +paySumm.replace(/[^0-9]/g, '');
-
-            if (paySumm > maxSumm) {
-               paySumm = maxSumm;
-            } else if (paySumm < 100) {
-				paySumm = 100;
-			}
-
-            function hlSumms(st,nd,rd,th) {
-               for (let n = 0; n < paytipBtns.length; n++) {
-                  paytipBtns[n].className = 'button_mini button_mini_grey';
-               }
-               if (paySumm == st) {
-                  paytipBtns[0].className = 'button_mini button_mini_blue';
-               } else if (paySumm == nd) {
-                  paytipBtns[1].className = 'button_mini button_mini_blue';
-               } else if (paySumm == rd) {
-                  paytipBtns[2].className = 'button_mini button_mini_blue';
-               } else if (paySumm == th) {
-                  paytipBtns[3].className = 'button_mini button_mini_blue';
-               }
-            }
-            hlSumms(100, 200, 300, 500);
-
-            let paySumm2 =  paySumm.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
-
-            paytipFld.value = paySumm2;
-         
-       });
-       paytipFld.value = sum.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
-       paytipBtns.forEach((btn, i) => {
-          btn.addEventListener('click', () => {         
-             let val = +btn.textContent;
-             let val2 = val.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
-             paytipFld.value = val2;
-             btn.className = 'button_mini button_mini_blue';
-             for (let n = 0; n < paytipBtns.length; n++) {
-                if (paytipBtns[n] === paytipBtns[i]) continue;
-                paytipBtns[n].className = 'button_mini button_mini_grey';
-             }
-          });
-       });
-   
-       const gpayBtn = paytip.querySelector('.gpay'),
-            cardBtn = paytip.querySelector('.credit'),
-            comission = paytip.querySelectorAll('[type="checkbox"]')[0],
-            policy = paytip.querySelectorAll('[type="checkbox"]')[1];
-   
-            policy.addEventListener('input', (e) => {
-               if (e.target.checked) {
-                  gpayBtn.disabled = false;
-                  cardBtn.disabled = false;
-               } else {
-                  gpayBtn.disabled = true;
-                  cardBtn.disabled = true;
-               }
-             })
-    }
-    
-    //Блок Отзывы
-    function reviews() {
-       const review = paytip.querySelector('.paytip__review'),
-       reviewStar = review.querySelector('.paytip__starRating'),
-       reviewBtn = review.querySelector('.review_button'),
-       reviewTitle = review.querySelector('.paytip__review__title');
-       function showReview() {
-          review.className = 'paytip__review openReview';
-       }
-       function closeReview() {
-          review.className = 'paytip__review';
-       }
-       reviewStar.addEventListener('click', showReview);
-       
-       const stars = reviewStar.querySelectorAll('.star');
-       let rating = 0;
-          stars.forEach((star, i) => {
-             star.addEventListener('click', () => {
-                rating = i + 1;
-                console.log(rating);
-                for (let n = 0; n <= i; n++) {
-                   stars[n].classList.add('rate');
-                   for (let m = 1; m <= 4-i; m++) {
-                      stars[n+m].classList.remove('rate');
-                   }
-                }
-             });
-          }); 
-       const inputReview = review.querySelector('.paytip__review__input');
-       
-       const reviewSend = (e) => {
-         e.preventDefault();
-         console.log(inputReview.value);
-         const reviewData = new FormData();
-         reviewData.append('rate', rating);
-         reviewData.append('review', inputReview.value)
-         axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/call', reviewData)  //Вставить роут для отзывов!
-         .then(() => {
-            inputReview.value = '';
-            closeReview();
-            Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["notif"])('Спасибо Вам за отзыв', '.wrapper', 2000);
-         })
-       };
-       reviewBtn.addEventListener('click', reviewSend);
-    }
-
-	function sendOpenPost() {
-		const page = document.querySelector('.paytip'),
-			  form = page.querySelector('.paytip__wrapper'),
-			  submitBtn = page.querySelector('#payCardButton'),
-			  timestamp = form.querySelector('#timestamp'),
-			  nonce = form.querySelector('#nonce'),
-			  psign = form.querySelector('#psign'),
-			  resof = form.querySelector('#resultof'),
-			  summ = paytip.querySelector('.paytip__sum'),
-			  amount = paytip.querySelector('#amount'),
-			  order_id = paytip.querySelector('#orderId'),
-			  toPay = paytip.querySelector('#toPay'),
-			  loading = paytip.querySelector('#loading'),
-			  cardIcon = paytip.querySelector('#cardIcon');
-
-		const fields = [
-			'TIMESTAMP', 
-			'NONCE', 
-			'AMOUNT',
-			'ORDER',
-			'TERMINAL'
-		];
-
-			  function sendForm(e) {
-				e.preventDefault();
-
-				timestamp.value = timeStamp();
-				nonce.value = token;
-				amount.value = summ.value.replace(/[^0-9]/g, '');
-				order_id.value = Math.floor(Math.random()*100000000);
-
-				const data = new FormData(form),
-					  data2 = (Object.fromEntries(data.entries())),
-	 				  data3 = fields.map(field => (data2[field].length === 0) ? '-' :`${data2[field].length}${data2[field]}`),
-		 			  MAC = data3.join('');
-
-				console.log(data2);   
-				console.log(MAC);
-				console.log(MAC.length);
-				let sendData = JSON.stringify({
-					data: MAC,
-					token: token
-				});
-				console.log(sendData);
-				axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/h1gen', sendData).then(res => {
-					cardIcon.style.display='none';
-					loading.style.display='block';
-					psign.value = res.data.result;
-					// resof.textContent = res.data.result;
-					toPay.click();
-					// form.setAttribute('action', 'https://3dstest.mdmbank.ru/cgi-bin/cgi_link')
-				});
-			  }
-
-
-			  submitBtn.addEventListener('click', sendForm);
-
-	}
-
-	sendOpenPost();
-    chooseSum();
-    reviews();
-}
-};
+}};
 
 /* harmony default export */ __webpack_exports__["default"] = (leavetip);
 
@@ -4922,6 +4867,66 @@ profilePrefs();
 
 /***/ }),
 
+/***/ "./src/js/modules/reviews.js":
+/*!***********************************!*\
+  !*** ./src/js/modules/reviews.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+  function reviews() {
+	const paytip = document.querySelector('.paytip');
+	if (paytip) {
+	const review = paytip.querySelector('.paytip__review'),
+	reviewStar = review.querySelector('.paytip__starRating'),
+	reviewBtn = review.querySelector('.review_button'),
+	reviewTitle = review.querySelector('.paytip__review__title');
+	function showReview() {
+	   review.className = 'paytip__review openReview';
+	}
+	function closeReview() {
+	   review.className = 'paytip__review';
+	}
+	reviewStar.addEventListener('click', showReview);
+	
+	const stars = reviewStar.querySelectorAll('.star');
+	let rating = 0;
+	   stars.forEach((star, i) => {
+		  star.addEventListener('click', () => {
+			 rating = i + 1;
+			 console.log(rating);
+			 for (let n = 0; n <= i; n++) {
+				stars[n].classList.add('rate');
+				for (let m = 1; m <= 4-i; m++) {
+				   stars[n+m].classList.remove('rate');
+				}
+			 }
+		  });
+	   }); 
+	const inputReview = review.querySelector('.paytip__review__input');
+	
+	const reviewSend = (e) => {
+	  e.preventDefault();
+	  console.log(inputReview.value);
+	  const reviewData = new FormData();
+	  reviewData.append('rate', rating);
+	  reviewData.append('review', inputReview.value)
+	  axios.post('/call', reviewData)  //Вставить роут для отзывов!
+	  .then(() => {
+		 inputReview.value = '';
+		 closeReview();
+		 notif('Спасибо Вам за отзыв', '.wrapper', 2000);
+	  })
+	};
+	reviewBtn.addEventListener('click', reviewSend);
+ }}
+
+ /* harmony default export */ __webpack_exports__["default"] = (reviews);
+
+/***/ }),
+
 /***/ "./src/js/modules/tables.js":
 /*!**********************************!*\
   !*** ./src/js/modules/tables.js ***!
@@ -5088,6 +5093,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_profile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/profile */ "./src/js/modules/profile.js");
 /* harmony import */ var _modules_tables__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/tables */ "./src/js/modules/tables.js");
 /* harmony import */ var _modules_barman__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/barman */ "./src/js/modules/barman.js");
+/* harmony import */ var _modules_reviews__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/reviews */ "./src/js/modules/reviews.js");
+/* harmony import */ var _modules_chooseSum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/chooseSum */ "./src/js/modules/chooseSum.js");
 
 
 
@@ -5096,15 +5103,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+const amount = [100, 200, 300, 500], // Предустановленные суммы чаевых
+	commission = 0.05, // 5%
+	cmmssnChsn = true, // Коммиссия начисляется сразу
+	start = '9:30', // Начало низкого сезона
+	end = '17:00',	// Конец  низкого сезона
+	min = 50,	// Минимальная сумма чаевых
+	max = 9999; // Максимальная сумма чаевых
 
 document.addEventListener('DOMContentLoaded', function () {
     Object(_modules_call__WEBPACK_IMPORTED_MODULE_0__["default"])();
     Object(_modules_menu__WEBPACK_IMPORTED_MODULE_3__["default"])();
     Object(_modules_login__WEBPACK_IMPORTED_MODULE_2__["default"])();
     Object(_modules_profile__WEBPACK_IMPORTED_MODULE_4__["default"])();
-    Object(_modules_leavetip__WEBPACK_IMPORTED_MODULE_1__["default"])('11:00', '16:00', 9999); // Начало / Конец дня / максимальная сумма
+    Object(_modules_leavetip__WEBPACK_IMPORTED_MODULE_1__["default"])();
     Object(_modules_tables__WEBPACK_IMPORTED_MODULE_5__["default"])();
     Object(_modules_barman__WEBPACK_IMPORTED_MODULE_6__["default"])();
+	Object(_modules_reviews__WEBPACK_IMPORTED_MODULE_7__["default"])();
+	Object(_modules_chooseSum__WEBPACK_IMPORTED_MODULE_8__["default"])(amount, commission, cmmssnChsn, start, end, min, max)
 });
 
 /***/ }),
@@ -5113,7 +5132,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /*!*************************************!*\
   !*** ./src/js/services/services.js ***!
   \*************************************/
-/*! exports provided: notif, showNav, isPartVis, isFullVis, logoResize, imageToShow, postData, avatar, stringToRubles, toRubles, addZero */
+/*! exports provided: notif, showNav, isPartVis, isFullVis, logoResize, imageToShow, postData, avatar, stringToRubles, toRubles, addZero, timeStamp */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5129,6 +5148,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stringToRubles", function() { return stringToRubles; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toRubles", function() { return toRubles; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addZero", function() { return addZero; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "timeStamp", function() { return timeStamp; });
 function notif(message, parent, dur) {
     const box = document.querySelector(`${parent}`),
           notification = document.createElement('div');
@@ -5236,6 +5256,17 @@ function addZero(n) {
     } else {
         return n;
     }
+}
+
+function timeStamp(GMT = 0) {
+	const date = new Date()
+	const YYYY = date.getFullYear(),
+		 MM = addZero(date.getMonth() + 1),
+		 DD = addZero(date.getDate()),
+		 hh = addZero(date.getUTCHours() + GMT),
+		 mm = addZero(date.getMinutes()),
+		 ss = addZero(date.getSeconds());
+	return `${YYYY}${MM}${DD}${hh}${mm}${ss}`
 }
 
 
