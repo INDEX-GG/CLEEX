@@ -26,7 +26,8 @@
            <div class="paytip__credo"></div>
         </div>
         <form class="paytip__wrapper" action='https://egwtest.open.ru/cgi-bin/cgi_link'>
-            <input class="paytip__sum"  type="text"/> 
+            <input class="paytip__sum"  type="text"/>
+			<input class="paytip__sum_result" type='hidden' name='amount'/>
             <div class="paytip__choiseSum">
                  <div class="button_mini button_mini_grey">100</div>
                  <div class="button_mini button_mini_grey">200</div>
@@ -44,11 +45,10 @@
                  </div>
                  <input class="paytip__review__input" placeholder="Ваш отзыв"/>
                  <button class="button button_blue review_button">Оставить отзыв</button>
-                 
                </div>
             <div class="paytip__buttons">
+				<div id="container"></div>
 				<button class="button_pay"  id='payCardButton'><div>Оплатить картой</div><img id='cardIcon' src="./topkatpl/img/credit-card.svg"/><img id='loading' src="./topkatpl/img/loading.svg"/></button>
-                <div id="container"></div>
             </div>
             <div class="paytip__checks">
                 <label class="checkbox">

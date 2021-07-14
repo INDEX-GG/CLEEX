@@ -4246,7 +4246,7 @@ function call() {
 __webpack_require__.r(__webpack_exports__);
 
 
-function chooseSum(amount, commission, cmmssnChsn, start, end, min, max) {
+function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, start, end, min, max) {
 	const paytip = document.querySelector('.paytip'),
 		  amountBox = amount;
 	if (paytip) {
@@ -4254,6 +4254,7 @@ function chooseSum(amount, commission, cmmssnChsn, start, end, min, max) {
 		//Элементы
 		const amounts = paytip.querySelectorAll('.button_mini'),
 			  inputSum = paytip.querySelector('.paytip__sum'),
+			  inputRes = paytip.querySelector('.paytip__sum_result'),
 			  cmmssnChck = paytip.querySelector('#comission'),
 			  cmmssnTxt = paytip.querySelector('#comText');
 
@@ -4261,16 +4262,18 @@ function chooseSum(amount, commission, cmmssnChsn, start, end, min, max) {
 		cmmssnChck.checked = cmmssnChsn;
 
 		//Предопределение размера комиссии
-		cmmssnTxt.textContent = `Я хочу взять на себя комиссию сотрудника (${commission * 100}%)`;
-		function changeSummsByComm(num = 0) {
-			if (num == 0) {
-				amount = amountBox;
+		function commissionRender(str) {
+			str = str + ' ';
+			str = str.replace(/\D+/g,"");
+			if (str < fixedMinSumm) {
+				str = +str + fixedComm;
 			} else {
-				amount = amount.map(sum => Math.round(sum * (1 + num)));
+				str = str * (1 + commission);
 			}
-		} 
-		if (cmmssnChck.checked) {
-			changeSummsByComm(commission);
+			inputRes.value = str;
+			console.log(inputRes.value)
+			str = str.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
+			cmmssnTxt.textContent = `Я хочу взять на себя комиссию сотрудника (${str})`;
 		}
 		
 		//Предопределенные суммы - присвоение
@@ -4282,15 +4285,6 @@ function chooseSum(amount, commission, cmmssnChsn, start, end, min, max) {
 		function sumRender(str) {
 			str = +str;
 			inputSum.value = str.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
-		}
-
-		//Рендер суммы в поле ввода, в зависмости от нажатой кнопки
-		function sumRenderByClckdBtn(){
-			amounts.forEach(sum => {
-				if (sum.classList.contains('button_mini_blue')) {
-					sumRender(sum.textContent);
-				} 
-			})
 		}
 
 		//Подсветка кнопки при совпадении суммы в поле ввода
@@ -4342,7 +4336,7 @@ function chooseSum(amount, commission, cmmssnChsn, start, end, min, max) {
 			   } else {
 					return amounts[3];
 			   }
-		 }
+		}
 
 		//Выбор суммы чаевых кнопками со значением по умолчанию
 		function chooseSumByBtns(dflt = tipsDefaultByTime(start, end)) {
@@ -4350,13 +4344,14 @@ function chooseSum(amount, commission, cmmssnChsn, start, end, min, max) {
 			//Значение по умолчанию
 			dflt.className = 'button_mini button_mini_blue';
 			sumRender(dflt.textContent);
-
+			commissionRender(inputSum.value);
 			//Выбор по нажатию
 			amounts.forEach((sum, i) => {
 				sum.addEventListener('click', () => {
 					amounts.forEach((itm, n) => {
 						if (n === i) {
 							sum.className = 'button_mini button_mini_blue';
+							commissionRender(sum.textContent);
 							sumRender(sum.textContent);
 						} else {
 							itm.className = 'button_mini button_mini_grey'
@@ -4370,14 +4365,8 @@ function chooseSum(amount, commission, cmmssnChsn, start, end, min, max) {
 		function commissionHandle() {
 			cmmssnChck.addEventListener('change', (e) => {
 				if (e.target.checked) {
-					changeSummsByComm(commission);
-					btnsSumsRender();
-					sumRenderByClckdBtn();
 					highlightSumms(...amount);
 				} else {
-					changeSummsByComm();
-					btnsSumsRender();
-					sumRenderByClckdBtn();
 					highlightSumms(...amount);
 				}
 			})
@@ -4385,20 +4374,32 @@ function chooseSum(amount, commission, cmmssnChsn, start, end, min, max) {
 
 		//Обработка ввода в поле с минимальной и максимальной суммой
 		function enterSum(min = 100, max = 15000) {
+			function minMaxCheck(num) {
+				if (num < min) {
+					return num = min;
+				} else if (num > max) {
+					return num = max;
+				} else {
+					return num;
+				}
+			};
 			inputSum.addEventListener('input', (e) => {
 				let paySumm = e.target.value;
-				paySumm = +paySumm.replace(/[^0-9]/g, '');
-				if (paySumm < min) {
-					paySumm = min;
-				} else if (paySumm > max) {
-					paySumm = max;
-				}
-				 highlightSumms(...amount);
+				
+				paySumm = minMaxCheck(+paySumm.replace(/[^0-9]/g, ''));
+				highlightSumms(...amount);
 				e.target.value = paySumm.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
+				commissionRender(paySumm);
 			});
 			inputSum.addEventListener('keydown', (e) => {
 				if (e.key === 'Backspace') {
-					return e.target.selectionEnd = e.target.selectionEnd - 2;
+					e.preventDefault();
+					let paySumm = e.target.value;
+					
+					paySumm = minMaxCheck(+paySumm.replace(/[^0-9]/g, '').slice(0, -1));
+					
+					e.target.value = paySumm.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
+					commissionRender(paySumm);
 				 }
 			})
 		}
@@ -5107,11 +5108,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const amount = [100, 200, 300, 500], // Предустановленные суммы чаевых
-	commission = 0.05, // 5%
+	commission = 0.055, // 5%
+	fixedComm = 6, // Фиксированная комиссия
+	fixedMinSumm = 50, // Минимальная сумма для фиксированной комиссии
 	cmmssnChsn = true, // Коммиссия начисляется сразу
 	start = '9:30', // Начало низкого сезона
 	end = '17:00',	// Конец  низкого сезона
-	min = 50,	// Минимальная сумма чаевых
+	min = 10,	// Минимальная сумма чаевых
 	max = 9999; // Максимальная сумма чаевых
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -5123,7 +5126,7 @@ document.addEventListener('DOMContentLoaded', function () {
     Object(_modules_tables__WEBPACK_IMPORTED_MODULE_5__["default"])();
     Object(_modules_barman__WEBPACK_IMPORTED_MODULE_6__["default"])();
 	Object(_modules_reviews__WEBPACK_IMPORTED_MODULE_7__["default"])();
-	Object(_modules_chooseSum__WEBPACK_IMPORTED_MODULE_8__["default"])(amount, commission, cmmssnChsn, start, end, min, max)
+	Object(_modules_chooseSum__WEBPACK_IMPORTED_MODULE_8__["default"])(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, start, end, min, max)
 });
 
 /***/ }),
