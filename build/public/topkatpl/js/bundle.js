@@ -4271,7 +4271,6 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 				str = str * (1 + commission);
 			}
 			inputRes.value = str;
-			console.log(inputRes.value)
 			str = str.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
 			cmmssnTxt.textContent = `Я хочу взять на себя комиссию сотрудника (${str})`;
 		}
