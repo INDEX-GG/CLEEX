@@ -41,8 +41,8 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 
 $routes->get('/payInData', 'DataForSale::index');
-
-
+$routes->get('/getBalance', 'GetBalance::index');
+$routes->get('/final', 'DebitComplete::index');
 
 $routes->get('/', 'Home::index');
 $routes->get('/topka', 'Topka::index');
