@@ -51,6 +51,7 @@ class Call extends BaseController
            $answer =[
                'error' => false,
                'name'=>$resultOff["name"],
+			   'staff_id'=>$result[0]["staff_id"]
            ];
          //  var_dump($answer);
            return $this->response->setJSON($answer);
@@ -61,6 +62,7 @@ class Call extends BaseController
                 $error["name"] = $resultOff["name"];
                 $error["motto"] = $resultOff["motto"];
                 $error["img"] = $resultOff['photo'];
+				$error["staff_id"] = $result[0]["staff_id"];
                 return $this->response->setJSON($error);
         }
 

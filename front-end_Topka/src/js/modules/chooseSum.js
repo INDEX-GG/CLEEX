@@ -47,7 +47,6 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 				str = staticDinamicCom(str)
 			}
 			inputRes.value = str * 100;
-			console.log(inputRes.value);
 		}
 
 		function commissionUnCheckRender() {
@@ -61,14 +60,12 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 				a = Math.round(a);
 			}
 			inputRes.value = a * 100;
-			console.log(inputRes.value);
 		}
 
 		function commissionCheckRender() {
 			let a = inputSum.value;
 			a = a.replace(/\D+/g,"");
 			inputRes.value = a * 100;
-			console.log(inputRes.value);
 		}
 
 		//Предопределенные суммы - присвоение

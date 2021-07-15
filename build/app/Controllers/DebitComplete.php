@@ -16,9 +16,9 @@ class DebitComplete extends BaseController
         $requisit = new Requisits();
 
 
-        $idArr = $transaction->where('staff_id',1)->where('status',true)->findAll();
+        $idArr = $transaction->where('staff_id',$this->request->getVar("id"))->where('status',1)->findAll();
 
-        $client_ref = $requisit->where('staff_id',2)->findAll()[0]["requisit"];
+        $client_ref = $requisit->where('staff_id',$this->request->getVar("id"))->findAll()[0]["requisit"];
 
         foreach ($idArr as $item)
         {
@@ -43,9 +43,13 @@ class DebitComplete extends BaseController
 
             $queryUrl = http_build_query($data);
 
-         //   $result = file_get_contents("https://test.best2pay.net/webapi/b2puser/Complete?" . $queryUrl);
+            $result = file_get_contents("https://test.best2pay.net/webapi/b2puser/Complete?" . $queryUrl);
 //
            // print_r($result);
+		   $date = [
+				'status'=>0
+			];
+			$transaction->update($item["idZakas"],$date);
         }
 	}
 }

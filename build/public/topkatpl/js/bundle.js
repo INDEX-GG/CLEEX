@@ -4111,17 +4111,28 @@ function barman() {
         Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["showNav"])();
         const barman = document.querySelector('.barman'),
                 name = barman.querySelector('.barman__name'),
-                currentSum = barman.querySelector('.barman__current');
-				
+                currentSum = barman.querySelector('.barman__current'),
+				unHold = barman.querySelector('.hold');
+			let id = '';
+
         function renderGetData() {
             axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/GetProfileDate')
             .then(res => {
-                Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["avatar"])('.barman__pic', res.data.img); //заработает, когда перенесем во views
+                Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["avatar"])('.barman__pic', res.data.img); 
                 name.textContent = res.data.name;
+				id = res.data.staff_id;
                 currentSum.textContent = `+ ${Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["toRubles"])(445)} за сегодня`
                 console.log(res);
-            })
+            });
         }
+		function renderBalance() {
+			axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/getBalance')
+			.then(r => {
+				let sum = + r.data.balance / 100
+				console.log(r)
+				renderTotalSum(sum, 200);
+			} )
+		}
         
         function renderTotalSum(totalSum, minSum) {
             const total = barman.querySelector('.barman__total'),
@@ -4145,8 +4156,14 @@ function barman() {
                   Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["stringToRubles"])('.barman__sum');
         };
 
+		unHold.addEventListener('click', (e) => {
+			e.preventDefault();
+			axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/final', {'id': id}).then(() => renderBalance());
+		})
+
         renderGetData();
-        renderTotalSum(1350, 200);
+		renderBalance()
+        // renderTotalSum(1350, 200);
     }
 }
 /* harmony default export */ __webpack_exports__["default"] = (barman);
@@ -4294,7 +4311,6 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 				str = staticDinamicCom(str)
 			}
 			inputRes.value = str * 100;
-			console.log(inputRes.value);
 		}
 
 		function commissionUnCheckRender() {
@@ -4308,14 +4324,12 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 				a = Math.round(a);
 			}
 			inputRes.value = a * 100;
-			console.log(inputRes.value);
 		}
 
 		function commissionCheckRender() {
 			let a = inputSum.value;
 			a = a.replace(/\D+/g,"");
 			inputRes.value = a * 100;
-			console.log(inputRes.value);
 		}
 
 		//Предопределенные суммы - присвоение
@@ -4485,6 +4499,7 @@ function leavetip() {
 if (paytip) {
    Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["showNav"])('yes');
    const name = paytip.querySelector('.paytip__name'),
+   staffIdField = paytip.querySelector('.staff_id'),
    credo = paytip.querySelector('.paytip__credo');
    
    let urlGet = window.
@@ -4502,10 +4517,11 @@ if (paytip) {
        );
    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/call', urlGet)
    .then(response => {
-    //   console.log(response);
+      console.log(response);
       Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["avatar"])('.paytip__pic', `../images/${response.data.img}`)
       name.textContent = response.data.name;
       credo.textContent = response.data.motto;
+	  staffIdField.value = response.data.staff_id;
    })
 }};
 

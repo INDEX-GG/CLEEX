@@ -28,12 +28,8 @@
         <form class="paytip__wrapper" action='/payInData'>
             <input class="paytip__sum"  type="text"/>
 
-			<!-- <input type='hidden' name='sector' /> -->
 			<input class="paytip__sum_result" type='hidden' name='amount'/>
-			<!-- <input type='hidden' name='currency' />
-			<input type='hidden' name='reference' />
-			<input type='hidden' name='description' />
-			<input type='hidden' name='signature' /> -->
+			<input class="staff_id" type='hidden' name='staff_id' />
 
             <div class="paytip__choiseSum">
                  <div class="button_mini button_mini_grey">100</div>

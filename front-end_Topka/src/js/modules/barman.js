@@ -6,17 +6,28 @@ function barman() {
         showNav();
         const barman = document.querySelector('.barman'),
                 name = barman.querySelector('.barman__name'),
-                currentSum = barman.querySelector('.barman__current');
-				
+                currentSum = barman.querySelector('.barman__current'),
+				unHold = barman.querySelector('.hold');
+			let id = '';
+
         function renderGetData() {
             axios.get('/GetProfileDate')
             .then(res => {
-                avatar('.barman__pic', res.data.img); //заработает, когда перенесем во views
+                avatar('.barman__pic', res.data.img); 
                 name.textContent = res.data.name;
+				id = res.data.staff_id;
                 currentSum.textContent = `+ ${toRubles(445)} за сегодня`
                 console.log(res);
-            })
+            });
         }
+		function renderBalance() {
+			axios.get('/getBalance')
+			.then(r => {
+				let sum = + r.data.balance / 100
+				console.log(r)
+				renderTotalSum(sum, 200);
+			} )
+		}
         
         function renderTotalSum(totalSum, minSum) {
             const total = barman.querySelector('.barman__total'),
@@ -40,8 +51,14 @@ function barman() {
                   stringToRubles('.barman__sum');
         };
 
+		unHold.addEventListener('click', (e) => {
+			e.preventDefault();
+			axios.post('/final', {'id': id}).then(() => renderBalance());
+		})
+
         renderGetData();
-        renderTotalSum(1350, 200);
+		renderBalance()
+        // renderTotalSum(1350, 200);
     }
 }
 export default barman;

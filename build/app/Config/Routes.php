@@ -42,7 +42,7 @@ $routes->setAutoRoute(true);
 
 $routes->get('/payInData', 'DataForSale::index');
 $routes->get('/getBalance', 'GetBalance::index');
-$routes->get('/final', 'DebitComplete::index');
+$routes->post('/final', 'DebitComplete::index');
 
 $routes->get('/', 'Home::index');
 $routes->get('/topka', 'Topka::index');

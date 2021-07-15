@@ -44,10 +44,10 @@ class DataForSale extends BaseController
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         $idReg = $vals[1]["value"];
 
-        $to_client_ref = $requisit->where('staff_id',2)->findAll()[0]["requisit"];
+        $to_client_ref = $requisit->where('staff_id',$this->request->getVar("staff_id"))->findAll()[0]["requisit"];
 
         $tableData = [
-            'staff_id'=> 2 ,//тут поменять
+            'staff_id'=> $this->request->getVar("staff_id") ,//тут поменять
             'status'=> true,
             'idZakas'=>$idReg,
             'amount'=>$amount

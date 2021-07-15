@@ -7,6 +7,7 @@ function leavetip() {
 if (paytip) {
    showNav('yes');
    const name = paytip.querySelector('.paytip__name'),
+   staffIdField = paytip.querySelector('.staff_id'),
    credo = paytip.querySelector('.paytip__credo');
    
    let urlGet = window.
@@ -24,10 +25,11 @@ if (paytip) {
        );
    axios.post('/call', urlGet)
    .then(response => {
-    //   console.log(response);
+      console.log(response);
       avatar('.paytip__pic', `../images/${response.data.img}`)
       name.textContent = response.data.name;
       credo.textContent = response.data.motto;
+	  staffIdField.value = response.data.staff_id;
    })
 }};
 

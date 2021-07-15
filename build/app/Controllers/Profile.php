@@ -26,6 +26,7 @@ class Profile extends BaseController
             $arr["name"] = $data["name"];
             $arr["motto"] = $data["motto"];
             $arr["img"] = 'images/'.$data['photo'];
+			$arr["staff_id"] = $session->get('User')[0]["id"];
           //  var_dump(json_encode($arr, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 //            exit();
            // return $this->response->setJSON($arr, false);

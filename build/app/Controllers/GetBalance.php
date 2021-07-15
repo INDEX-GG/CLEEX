@@ -33,6 +33,8 @@ class GetBalance extends BaseController
         xml_parse_into_struct($p, $result, $vals, $index);
         xml_parser_free($p);
 
-        echo  "balance:".$vals[3]["value"];
+    
+		$arrRes["balance"] = $vals[3]["value"];
+		return $this->response->setJSON($arrRes);
     }
 }

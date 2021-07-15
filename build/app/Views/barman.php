@@ -34,7 +34,8 @@
                   <p>20 ₽ - комиссия с одного вывода средств</p>
               </div>
               <div class="barman__buttons">
-                  <button class="button_pay"><div>Вывести на карту</div><img src="./topkatpl/img/credit-card.svg"/></button>
+			  		<button class="button_pay hold"><div>Расхолдировать</div><img src="./topkatpl/img/credit-card.svg"/></button>
+                  	<button class="button_pay"><div>Вывести на карту</div><img src="./topkatpl/img/credit-card.svg"/></button>
               </div>
               <div class="barman__checks">
                    <label class="checkbox">
