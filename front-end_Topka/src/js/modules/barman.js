@@ -7,6 +7,7 @@ function barman() {
         const barman = document.querySelector('.barman'),
                 name = barman.querySelector('.barman__name'),
                 currentSum = barman.querySelector('.barman__current');
+				
         function renderGetData() {
             axios.get('/GetProfileDate')
             .then(res => {
