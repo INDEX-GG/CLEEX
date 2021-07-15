@@ -4247,8 +4247,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, start, end, min, max) {
-	const paytip = document.querySelector('.paytip'),
-		  amountBox = amount;
+	const paytip = document.querySelector('.paytip');
 	if (paytip) {
 
 		//Элементы
@@ -4265,16 +4264,40 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 		function commissionRender(str) {
 			str = str + ' ';
 			str = str.replace(/\D+/g,"");
-			if (str < fixedMinSumm) {
-				str = +str + fixedComm;
-			} else {
-				str = str * (1 + commission);
-			}
-			inputRes.value = str;
-			str = str.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
-			cmmssnTxt.textContent = `Я хочу взять на себя комиссию сотрудника (${str})`;
+			str = Math.round(+str);
+			if (cmmssnChck.checked) {
+				if (str < fixedMinSumm) {
+					str = +str + fixedComm;
+				} else {
+					str = str * (1 + commission);
+				}
+			} 
+			console.log(str)
+			let str1 = str.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
+			cmmssnTxt.textContent = `Я хочу взять на себя комиссию сотрудника (${str1})`;
+			inputRes.value = str * 100;
+			console.log(inputRes.value);
 		}
-		
+
+		function commissionUnCheckRender() {
+			let a = inputSum.value;
+			a = a.replace(/\D+/g,"");
+			if (a < fixedMinSumm) {
+				a = +a + fixedComm;
+			} else {
+				a = a * (1 + commission);
+			}
+			inputRes.value = a * 100;
+			console.log(inputRes.value);
+		}
+
+		function commissionCheckRender() {
+			let a = inputSum.value;
+			a = a.replace(/\D+/g,"");
+			inputRes.value = a * 100;
+			console.log(inputRes.value);
+		}
+
 		//Предопределенные суммы - присвоение
 		function btnsSumsRender() {
 			amounts.forEach((sum, i) => sum.textContent = amount[i]);
@@ -4364,8 +4387,10 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 		function commissionHandle() {
 			cmmssnChck.addEventListener('change', (e) => {
 				if (e.target.checked) {
+					commissionUnCheckRender();
 					highlightSumms(...amount);
 				} else {
+					commissionCheckRender();
 					highlightSumms(...amount);
 				}
 			})
