@@ -6,6 +6,8 @@ use App\Controllers\BaseController;
 
 class HashGen extends BaseController
 {
+    public $signature;
+
 	public function token()
 	{
         $token = bin2hex(random_bytes(16));
@@ -17,18 +19,14 @@ class HashGen extends BaseController
         return $this->response->setJSON($arr);
     }
 
-    public function h1()
+    public function h1($stringQ)
     {
-        $data = $this->request->getVar("data");
-       $key  = $this->request->getVar("token");
 
+        $md5Gen = md5($stringQ);
 
-        $str = hash_hmac("sha1", $data, $key,false);
+        $str = base64_encode($md5Gen);
 
-        $arr = [
-            'result'=>$str
-        ];
+        $this->signature = $str;
 
-        return $this->response->setJSON($arr);
     }
 }

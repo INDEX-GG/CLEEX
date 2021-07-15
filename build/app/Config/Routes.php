@@ -39,6 +39,11 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+$routes->get('/payInData', 'DataForSale::index');
+
+
+
 $routes->get('/', 'Home::index');
 $routes->get('/topka', 'Topka::index');
 $routes->get('/test', 'Test::index');
@@ -46,7 +51,7 @@ $routes->get('/test', 'Test::index');
 $routes->post('/Add', 'Add::index'); //добавить фильтр нужно
 /////////////////////
 $routes->get('/hashGen', 'HashGen::token');
-$routes->post('/h1gen', 'HashGen::h1');
+$routes->get('/h1gen', 'HashGen::h1');
 ///////////////////
 $routes->post('/updateProfile', 'Updateprofile::updateProfileDate');  //Обновляет данные профиля
 $routes->post('/usedTables','Usedtables::fixTable'); //Добавляет столы в таблицу
@@ -77,6 +82,9 @@ $routes->get('/GetProfileDate','Profile::getDate'); //получает данн�
 $routes->get('/login', 'Login::index'); // страница авторизации официанта
 
 $routes->get('(:any)', 'Pages::view/$1');
+
+
+
 
 /*
  * --------------------------------------------------------------------
