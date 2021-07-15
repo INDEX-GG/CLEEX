@@ -41,7 +41,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 /////////////////////////////////////////////////////////////////BANK
 $routes->get('/payInData', 'DataForSale::index');
-$routes->get('/getBalance', 'GetBalance::index');
+$routes->post('/getBalance', 'GetBalance::index');
 $routes->post('/final', 'DebitComplete::index');
 $routes->get('/regCard', 'RegCard::index');
 /////////////////////////////////////////////////////////////////////

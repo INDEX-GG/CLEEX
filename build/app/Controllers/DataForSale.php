@@ -74,7 +74,7 @@ class DataForSale extends BaseController
         ];
         $queryUrl = http_build_query($dataSell);
 
-     //   $result = file_get_contents("https://test.best2pay.net/webapi/b2puser/PayInDebit?" . $queryUrl);
+        $result = file_get_contents("https://test.best2pay.net/webapi/b2puser/PayInDebit?" . $queryUrl);
 
 
 
