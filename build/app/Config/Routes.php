@@ -39,11 +39,12 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-
+/////////////////////////////////////////////////////////////////BANK
 $routes->get('/payInData', 'DataForSale::index');
 $routes->get('/getBalance', 'GetBalance::index');
 $routes->post('/final', 'DebitComplete::index');
-
+$routes->get('/regCard', 'RegCard::index');
+/////////////////////////////////////////////////////////////////////
 $routes->get('/', 'Home::index');
 $routes->get('/topka', 'Topka::index');
 $routes->get('/test', 'Test::index');
