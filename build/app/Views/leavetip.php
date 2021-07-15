@@ -25,9 +25,16 @@
            <div class="paytip__name"></div>
            <div class="paytip__credo"></div>
         </div>
-        <form class="paytip__wrapper" action='https://egwtest.open.ru/cgi-bin/cgi_link'>
+        <form class="paytip__wrapper" action='/payInData'>
             <input class="paytip__sum"  type="text"/>
+
+			<!-- <input type='hidden' name='sector' /> -->
 			<input class="paytip__sum_result" type='hidden' name='amount'/>
+			<!-- <input type='hidden' name='currency' />
+			<input type='hidden' name='reference' />
+			<input type='hidden' name='description' />
+			<input type='hidden' name='signature' /> -->
+
             <div class="paytip__choiseSum">
                  <div class="button_mini button_mini_grey">100</div>
                  <div class="button_mini button_mini_grey">200</div>

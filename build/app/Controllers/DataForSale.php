@@ -14,7 +14,7 @@ class DataForSale extends BaseController
         $hashGen = new HashGen();
 
         $sector = 2832;
-        $amount = 300000;
+        $amount = $this->request->getVar("amount");
         $reference = rand(1, 999999);
         $hashGen->h1($sector . $amount . '643test');
 

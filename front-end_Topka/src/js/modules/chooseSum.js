@@ -14,21 +14,38 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 		//Предопределение активности чекбокса комиссии
 		cmmssnChck.checked = cmmssnChsn;
 
+		//Расчёт фиксированной и динамической комиссии
+		function staticDinamicCom(str) {
+				if (str < fixedMinSumm) {
+					str = +str + fixedComm;
+					return str = Math.round(str);
+				} else {
+					str = +str * (1 + commission);
+					return str = Math.round(str);
+				}
+		}
+
+		//Отрисовка размера комиссии
+		function commValRender(str) {
+			str = str + ' ';
+			str = str.replace(/\D+/g,"");
+			if (str < fixedMinSumm) {
+				str = fixedComm;
+			} else {
+				str = (+str * (1 + commission)) - str;
+				str = Math.round(str);
+			}
+			str = str.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
+			cmmssnTxt.textContent = `Я хочу взять на себя комиссию сотрудника (${str})`
+		}
+
 		//Предопределение размера комиссии
 		function commissionRender(str) {
 			str = str + ' ';
 			str = str.replace(/\D+/g,"");
-			str = Math.round(+str);
 			if (cmmssnChck.checked) {
-				if (str < fixedMinSumm) {
-					str = +str + fixedComm;
-				} else {
-					str = str * (1 + commission);
-				}
-			} 
-			console.log(str)
-			let str1 = str.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
-			cmmssnTxt.textContent = `Я хочу взять на себя комиссию сотрудника (${str1})`;
+				str = staticDinamicCom(str)
+			}
 			inputRes.value = str * 100;
 			console.log(inputRes.value);
 		}
@@ -38,8 +55,10 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 			a = a.replace(/\D+/g,"");
 			if (a < fixedMinSumm) {
 				a = +a + fixedComm;
+				a = Math.round(a);
 			} else {
 				a = a * (1 + commission);
+				a = Math.round(a);
 			}
 			inputRes.value = a * 100;
 			console.log(inputRes.value);
@@ -121,6 +140,7 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 			dflt.className = 'button_mini button_mini_blue';
 			sumRender(dflt.textContent);
 			commissionRender(inputSum.value);
+			commValRender(inputSum.value);
 			//Выбор по нажатию
 			amounts.forEach((sum, i) => {
 				sum.addEventListener('click', () => {
@@ -128,6 +148,7 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 						if (n === i) {
 							sum.className = 'button_mini button_mini_blue';
 							commissionRender(sum.textContent);
+							commValRender(sum.textContent);
 							sumRender(sum.textContent);
 						} else {
 							itm.className = 'button_mini button_mini_grey'
@@ -168,6 +189,7 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 				highlightSumms(...amount);
 				e.target.value = paySumm.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
 				commissionRender(paySumm);
+				commValRender(paySumm);
 			});
 			inputSum.addEventListener('keydown', (e) => {
 				if (e.key === 'Backspace') {
@@ -178,6 +200,7 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 					
 					e.target.value = paySumm.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
 					commissionRender(paySumm);
+					commValRender(paySumm);
 				 }
 			})
 		}
