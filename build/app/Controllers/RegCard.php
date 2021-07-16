@@ -55,4 +55,10 @@ class RegCard extends BaseController
             return $this->response->setJSON($arrRes);
         }
 	}
+
+
+	public function getView()
+	{
+		return view('regCard');
+	}
 }

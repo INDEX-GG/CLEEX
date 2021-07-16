@@ -6,8 +6,12 @@ function barman() {
         showNav();
         const barman = document.querySelector('.barman'),
                 name = barman.querySelector('.barman__name'),
+				sum = barman.querySelector('.barman__sum'),
                 currentSum = barman.querySelector('.barman__current'),
-				unHold = barman.querySelector('.hold');
+				withdraw = barman.querySelector('.withdraw'),
+				unHold = barman.querySelector('.hold'),
+				issue = barman.querySelector('.issue');
+				
 			let id = '';
 
         function renderGetData() {
@@ -21,6 +25,7 @@ function barman() {
 				renderBalance();
             });
         }
+
 		function renderBalance() {
 			axios.post('/getBalance', {staff_id: id})
 			.then(r => {
@@ -32,7 +37,6 @@ function barman() {
         
         function renderTotalSum(totalSum, minSum) {
             const total = barman.querySelector('.barman__total'),
-                  sum = barman.querySelector('.barman__sum'),
                   min = barman.querySelector('.barman__minsum');
                   console.log(min.textContent)
                     total.textContent = toRubles(totalSum);
@@ -54,7 +58,16 @@ function barman() {
 
 		unHold.addEventListener('click', (e) => {
 			e.preventDefault();
-			axios.post('/final', {'id': id}).then(() => renderBalance());
+			axios.post('/final', {id: id}).then(() => renderBalance());
+		});
+
+		withdraw.addEventListener('click', (e) => {
+			e.preventDefault();
+			let amount = (sum.value.replace(/\D+/g,"") * 100);
+			console.log(amount)
+			axios.post('/withdraw', {staff_id: id, superbabki: amount })
+			.then(r => console.log(r))
+			.catch(e => console.error(e))
 		})
 
         renderGetData();

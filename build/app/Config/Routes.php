@@ -43,7 +43,8 @@ $routes->setAutoRoute(true);
 $routes->get('/payInData', 'DataForSale::index');
 $routes->post('/getBalance', 'GetBalance::index');
 $routes->post('/final', 'DebitComplete::index');
-$routes->get('/regCard', 'RegCard::index');
+$routes->post('/regCard', 'RegCard::index');
+$routes->get('/regCard', 'RegCard::getView');
 /////////////////////////////////////////////////////////////////////
 $routes->get('/', 'Home::index');
 $routes->get('/topka', 'Topka::index');

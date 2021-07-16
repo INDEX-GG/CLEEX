@@ -4111,8 +4111,12 @@ function barman() {
         Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["showNav"])();
         const barman = document.querySelector('.barman'),
                 name = barman.querySelector('.barman__name'),
+				sum = barman.querySelector('.barman__sum'),
                 currentSum = barman.querySelector('.barman__current'),
-				unHold = barman.querySelector('.hold');
+				withdraw = barman.querySelector('.withdraw'),
+				unHold = barman.querySelector('.hold'),
+				issue = barman.querySelector('.issue');
+				
 			let id = '';
 
         function renderGetData() {
@@ -4126,6 +4130,7 @@ function barman() {
 				renderBalance();
             });
         }
+
 		function renderBalance() {
 			axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/getBalance', {staff_id: id})
 			.then(r => {
@@ -4137,7 +4142,6 @@ function barman() {
         
         function renderTotalSum(totalSum, minSum) {
             const total = barman.querySelector('.barman__total'),
-                  sum = barman.querySelector('.barman__sum'),
                   min = barman.querySelector('.barman__minsum');
                   console.log(min.textContent)
                     total.textContent = Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["toRubles"])(totalSum);
@@ -4159,7 +4163,16 @@ function barman() {
 
 		unHold.addEventListener('click', (e) => {
 			e.preventDefault();
-			axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/final', {'id': id}).then(() => renderBalance());
+			axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/final', {id: id}).then(() => renderBalance());
+		});
+
+		withdraw.addEventListener('click', (e) => {
+			e.preventDefault();
+			let amount = (sum.value.replace(/\D+/g,"") * 100);
+			console.log(amount)
+			axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/withdraw', {staff_id: id, superbabki: amount })
+			.then(r => console.log(r))
+			.catch(e => console.error(e))
 		})
 
         renderGetData();
@@ -4933,6 +4946,31 @@ profilePrefs();
 
 /***/ }),
 
+/***/ "./src/js/modules/regCard.js":
+/*!***********************************!*\
+  !*** ./src/js/modules/regCard.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/services */ "./src/js/services/services.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+function barman() {
+    if (document.querySelector('.regCard')) {
+        Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["showNav"])();
+		
+    }
+}
+/* harmony default export */ __webpack_exports__["default"] = (barman);
+
+/***/ }),
+
 /***/ "./src/js/modules/reviews.js":
 /*!***********************************!*\
   !*** ./src/js/modules/reviews.js ***!
@@ -5161,6 +5199,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_barman__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/barman */ "./src/js/modules/barman.js");
 /* harmony import */ var _modules_reviews__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/reviews */ "./src/js/modules/reviews.js");
 /* harmony import */ var _modules_chooseSum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/chooseSum */ "./src/js/modules/chooseSum.js");
+/* harmony import */ var _modules_regCard__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/regCard */ "./src/js/modules/regCard.js");
+
 
 
 

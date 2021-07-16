@@ -8,6 +8,7 @@ import chooseTables from './modules/tables';
 import barman from './modules/barman';
 import reviews from './modules/reviews';
 import chooseSum from './modules/chooseSum';
+import regCard from './modules/regCard';
 
 const amount = [100, 200, 300, 500], // Предустановленные суммы чаевых
 	commission = 0.055, // 5%
