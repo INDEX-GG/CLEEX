@@ -26,12 +26,12 @@ $error: #f47979; //Красный, ошибки
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: $dark2;
+    background-color: $light;
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: $dark;
+    background-color: $w;
 }
 
 
@@ -40,15 +40,15 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 40px $dark inset !important;
-    -webkit-text-fill-color: $light !important;
+    -webkit-box-shadow: 0 0 0 40px $light inset !important;
+    -webkit-text-fill-color: $dark !important;
 }
 
 body,
 html {
     overflow-x: hidden;
     scroll-behavior: smooth;
-    scrollbar-color: $dark2 $dark;
+    scrollbar-color: $light $w;
     scrollbar-width: thin;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     -webkit-tap-highlight-color: transparent;
@@ -70,7 +70,7 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     white-space: nowrap;
-    box-shadow: 0px 4px 10px $b;
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
     transition: all 350ms ease-in-out;
 
     &_grey,

@@ -1,11 +1,11 @@
 .footer {
     width: 100%;
-    background-color: $dark;
+    background-color: $light;
     height: $spacing * 11;
     box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     z-index: 2;
-    color: $light;
+    color: $dark;
 
     &__wrapper {
         box-sizing: border-box;
@@ -28,7 +28,7 @@
         justify-content: space-around;
 
         & a {
-            color: $light;
+            color: $dark;
             cursor: pointer;
 
             &:hover {
@@ -40,7 +40,7 @@
     &__dev {
 
         & a {
-            color: $prime;
+            color: $primedark;
             padding: $spacing*3 0;
 
             &:hover {

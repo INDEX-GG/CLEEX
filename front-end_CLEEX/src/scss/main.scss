@@ -3,9 +3,9 @@
     overflow-x: hidden;
     width: 100%;
     height: auto;
-    color: $light;
+    color: $dark;
     padding: $spacing * 11 0 $spacing*20;
-    background: center center url(../img/shape_bg.svg) no-repeat, linear-gradient($dark 50%, transparent 50%);
+    background: center center url(../img/shape_bg.svg) no-repeat, linear-gradient($light 50%, transparent 50%);
     background-size: 100% 100%;
 
     &__wrapper {
@@ -111,7 +111,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        color: $light;
+        color: $dark;
         font-size: 64px;
         line-height: 88px;
         font-weight: 700;
@@ -121,7 +121,7 @@
             z-index: -1;
             width: 100%;
             height: 100%;
-            filter: brightness(0.3);
+            // filter: brightness(0.3);
             opacity: .8;
         }
 

@@ -3,8 +3,8 @@
     z-index: 2;
     width: 100%;
     height: 750px;
-    color: $light;
-    background: center center url(../img/shape_bg.svg) no-repeat, linear-gradient(transparent 50%, $dark 50%);
+    color: $primedark;
+    background: center center url(../img/shape_bg.svg) no-repeat, linear-gradient(transparent 50%, $light 50%);
     background-size: 100% 100%;
 
     &__wrapper {
@@ -23,7 +23,7 @@
     &__title {
         font-size: 36px;
         font-weight: 700;
-        color: $prime;
+        color: $dark;
         padding: $spacing*3 0;
     }
 
@@ -51,14 +51,14 @@
 
         & input {
             width: 100%;
-            color: $light;
+            color: $primedark;
             background-color: transparent;
             font-size: 22px;
-            border-bottom: 4px solid $prime;
+            border-bottom: 4px solid $primedark;
             padding: $spacing*3 0;
 
             &::placeholder {
-                color: $light;
+                color: $primedark
             }
         }
     }
@@ -78,9 +78,9 @@
         width: 100%;
         text-align: left;
         margin: $spacing*3 0;
-
+		color: $primedark;
         & a {
-            color: $prime;
+            color: $primedark;
 
             &:hover {
                 text-decoration: underline;
@@ -96,18 +96,19 @@
         align-items: flex-end;
         justify-content: center;
         font-size: 22px;
-
+		color: $dark;
         &>* {
             margin: $spacing 0;
         }
 
         &__title {
+			color: $primedark;
             font-weight: 700;
         }
 
         &__phone {
             cursor: pointer;
-            color: $light;
+            color: $dark;
             background: left center url(../img/phone.svg) no-repeat;
             background-size: contain;
             padding: $spacing/2 0 $spacing/2 $spacing*6;
@@ -119,7 +120,7 @@
 
         &__mail {
             cursor: pointer;
-            color: $light;
+            color: $dark;
             background: left center url(../img/email.svg) no-repeat;
             background-size: $spacing*4;
             padding: $spacing/2 0 $spacing/2 $spacing*6;
@@ -133,7 +134,7 @@
             width: 100%;
             text-align: right;
             cursor: pointer;
-            color: $light;
+            color: $dark;
             line-height: 30px;
 
             &:hover {
@@ -185,7 +186,7 @@
 
             & input {
                 font-size: 18px;
-                border-bottom: 2px solid $prime;
+                border-bottom: 2px solid $primedark;
 
             }
         }
