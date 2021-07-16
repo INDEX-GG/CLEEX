@@ -4171,7 +4171,7 @@ function barman() {
 			let amount = (sum.value.replace(/\D+/g,"") * 100);
 			console.log(amount)
 			axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/withdraw', {staff_id: id, superbabki: amount })
-			.then(r => console.log(r))
+			.then(r => location = r.data.url)
 			.catch(e => console.error(e))
 		})
 
@@ -4311,9 +4311,9 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 				str = fixedComm;
 			} else {
 				str = (+str * (1 + commission)) - str;
-				str = Math.round(str);
+				// str = Math.round(str);
 			}
-			str = str.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
+			str = str.toLocaleString('ru', { maximumFractionDigits: 2, style: 'currency', currency: 'RUB' });
 			cmmssnTxt.textContent = `Я хочу взять на себя комиссию сотрудника (${str})`
 		}
 
@@ -4321,22 +4321,22 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 		function commissionRender(str) {
 			str = str + ' ';
 			str = str.replace(/\D+/g,"");
-			if (cmmssnChck.checked) {
-				str = staticDinamicCom(str)
-			}
+			// if (cmmssnChck.checked) {
+			// 	str = staticDinamicCom(str)
+			// }
 			inputRes.value = str * 100;
 		}
 
 		function commissionUnCheckRender() {
 			let a = inputSum.value;
 			a = a.replace(/\D+/g,"");
-			if (a < fixedMinSumm) {
-				a = +a + fixedComm;
-				a = Math.round(a);
-			} else {
-				a = a * (1 + commission);
-				a = Math.round(a);
-			}
+			// if (a < fixedMinSumm) {
+			// 	a = +a + fixedComm;
+			// 	a = Math.round(a);
+			// } else {
+			// 	a = a * (1 + commission);
+			// 	a = Math.round(a);
+			// }
 			inputRes.value = a * 100;
 		}
 
@@ -4964,7 +4964,8 @@ __webpack_require__.r(__webpack_exports__);
 function regCard() {
     if (document.querySelector('.regCard')) {
         Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["showNav"])();
-		const regCard = document.querySelector('.regCard');
+		const regCard = document.querySelector('.regCard'),
+		regForm = regCard.querySelector('.regCard__wrapper');
 		async function getData() {
 			const data = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/GetProfileDate')
 			.then(r => r.data.staff_id)
@@ -5007,6 +5008,17 @@ function regCard() {
 			const fieldsBox = document.querySelector('.regCard__fields');
 			fieldsBox.innerHTML = fields.map(item => renderField({...item})).join('');
 		}
+
+		regForm.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const formData = new FormData(regForm);
+			const data = Object.fromEntries(formData.entries());
+			axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/regCard', formData)
+			.then(r => location = r.data.url)
+			.catch(e => console.error(e))
+			console.log(data);
+		})
+
 		getData();
 		render();
     }

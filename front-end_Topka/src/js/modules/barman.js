@@ -66,7 +66,7 @@ function barman() {
 			let amount = (sum.value.replace(/\D+/g,"") * 100);
 			console.log(amount)
 			axios.post('/withdraw', {staff_id: id, superbabki: amount })
-			.then(r => console.log(r))
+			.then(r => location = r.data.url)
 			.catch(e => console.error(e))
 		})
 
