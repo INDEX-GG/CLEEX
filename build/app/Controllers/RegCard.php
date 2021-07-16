@@ -20,7 +20,7 @@ class RegCard extends BaseController
 
             $sector = 2832;
 
-
+//
 
             $first_name = $this->request->getVar("first_name");
             $patronymic = $this->request->getVar("patronymic");
@@ -64,21 +64,22 @@ class RegCard extends BaseController
 
 ////////Подтверждение номера.
 
-
-            $hashGen->h1($sector.$vals[5]["value"].'test');
+            $client_ref = $vals[5]["value"];
+        //    $client_ref = '5d9f34fb-9c25-48bf-9cc3-edf6f38f575b';
+            $hashGen->h1($sector.$client_ref.'test');
 
             $signature = $hashGen->signature;
 
 
             $phoneData = [
                 'sector'=>$sector,
-                'client_ref'=>$vals[5]["value"],
+                'client_ref'=>$client_ref,
                 'signature'=>$signature
             ];
-            $queryUrl = http_build_query($data);
+            $queryUrl = http_build_query($phoneData);
 
 
-           return redirect()->to("https://test.best2pay.net/webapi/b2puser/Register?".$queryUrl);
+           return redirect()->to("https://test.best2pay.net/webapi/b2puser/SetPhone?".$queryUrl);
 
 
         }
