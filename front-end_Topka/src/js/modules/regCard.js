@@ -4,7 +4,8 @@ import axios from 'axios';
 function regCard() {
     if (document.querySelector('.regCard')) {
         showNav();
-		const regCard = document.querySelector('.regCard');
+		const regCard = document.querySelector('.regCard'),
+		regForm = regCard.querySelector('.regCard__wrapper');
 		async function getData() {
 			const data = await axios.get('/GetProfileDate')
 			.then(r => r.data.staff_id)
@@ -47,6 +48,17 @@ function regCard() {
 			const fieldsBox = document.querySelector('.regCard__fields');
 			fieldsBox.innerHTML = fields.map(item => renderField({...item})).join('');
 		}
+
+		regForm.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const formData = new FormData(regForm);
+			const data = Object.fromEntries(formData.entries());
+			axios.post('/regCard', formData)
+			.then(r => location = r.data.url)
+			.catch(e => console.error(e))
+			console.log(data);
+		})
+
 		getData();
 		render();
     }

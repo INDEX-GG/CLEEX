@@ -36,6 +36,8 @@ class OutBabki extends BaseController
         $queryUrl = http_build_query($data);
 
        // echo "https://test.best2pay.net/webapi/b2puser/PayOut?" . $queryUrl;
-       return redirect()->to("https://test.best2pay.net/webapi/b2puser/PayOut?" . $queryUrl);
+	   $arrRes["url"] = "https://test.best2pay.net/webapi/b2puser/PayOut?" . $queryUrl;
+	   return $this->response->setJSON($arrRes);
+       //return redirect()->to("https://test.best2pay.net/webapi/b2puser/PayOut?" . $queryUrl);
 	}
 }

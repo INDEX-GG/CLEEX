@@ -33,9 +33,9 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 				str = fixedComm;
 			} else {
 				str = (+str * (1 + commission)) - str;
-				str = Math.round(str);
+				// str = Math.round(str);
 			}
-			str = str.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
+			str = str.toLocaleString('ru', { maximumFractionDigits: 2, style: 'currency', currency: 'RUB' });
 			cmmssnTxt.textContent = `Я хочу взять на себя комиссию сотрудника (${str})`
 		}
 
@@ -43,22 +43,22 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 		function commissionRender(str) {
 			str = str + ' ';
 			str = str.replace(/\D+/g,"");
-			if (cmmssnChck.checked) {
-				str = staticDinamicCom(str)
-			}
+			// if (cmmssnChck.checked) {
+			// 	str = staticDinamicCom(str)
+			// }
 			inputRes.value = str * 100;
 		}
 
 		function commissionUnCheckRender() {
 			let a = inputSum.value;
 			a = a.replace(/\D+/g,"");
-			if (a < fixedMinSumm) {
-				a = +a + fixedComm;
-				a = Math.round(a);
-			} else {
-				a = a * (1 + commission);
-				a = Math.round(a);
-			}
+			// if (a < fixedMinSumm) {
+			// 	a = +a + fixedComm;
+			// 	a = Math.round(a);
+			// } else {
+			// 	a = a * (1 + commission);
+			// 	a = Math.round(a);
+			// }
 			inputRes.value = a * 100;
 		}
 
