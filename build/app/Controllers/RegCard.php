@@ -17,13 +17,30 @@ class RegCard extends BaseController
 
         if(empty($requisit->where('staff_id',$this->request->getVar("staff_id"))->findAll()))
         {
+
             $sector = 2832;
 
-            $hashGen->h1($sector . 'test');
+
+
+            $first_name = $this->request->getVar("first_name");
+            $patronymic = $this->request->getVar("patronymic");
+            $last_name  =$this->request->getVar('last_name');
+            $birth_date = $this->request->getVar('birth_date');
+            $address = $this->request->getVar('address');
+            $email = $this->request->getVar('email');
+
+            $hashGen->h1($sector .$first_name. $patronymic.$last_name.$birth_date.$address.$email.'test');
+
             $signature = $hashGen->signature;
 
             $data = [
                 'sector' => $sector,
+                'first_name'=>$first_name,
+                'patronymic'=>$patronymic,
+                'last_name' => $last_name,
+                'birth_date'=>$birth_date,
+                'address' => $address,
+                'email'=>$email,
                 'signature' => $signature
             ];
 
@@ -32,22 +49,38 @@ class RegCard extends BaseController
 
             $result = file_get_contents("https://test.best2pay.net/webapi/b2puser/Register?" . $queryUrl);
 
-      //      echo "https://test.best2pay.net/webapi/b2puser/Register?" . $queryUrl;
 
-           $p = xml_parser_create();
-           xml_parse_into_struct($p, $result, $vals, $index);
-           xml_parser_free($p);
-
+            $p = xml_parser_create();
+            xml_parse_into_struct($p, $result, $vals, $index);
+            xml_parser_free($p);
 
 
-           $tableData = [
-               'staff_id'=> $this->request->getVar("staff_id"),
-               'requisit'=>$vals[5]["value"]
-           ];
+            $tableData = [
+                'staff_id'=> $this->request->getVar("staff_id"),
+                'requisit'=>$vals[5]["value"]
+            ];
 
-           $requisit->insert($tableData);
-            $arrRes["status"] = "success";
-            return $this->response->setJSON($arrRes);
+            $requisit->insert($tableData);
+
+////////Подтверждение номера.
+
+
+            $hashGen->h1($sector.$vals[5]["value"].'test');
+
+            $signature = $hashGen->signature;
+
+
+            $phoneData = [
+                'sector'=>$sector,
+                'client_ref'=>$vals[5]["value"],
+                'signature'=>$signature
+            ];
+            $queryUrl = http_build_query($data);
+
+
+           return redirect()->to("https://test.best2pay.net/webapi/b2puser/Register?".$queryUrl);
+
+
         }
         else
         {

@@ -45,6 +45,8 @@ $routes->post('/getBalance', 'GetBalance::index');
 $routes->post('/final', 'DebitComplete::index');
 $routes->post('/regCard', 'RegCard::index');
 $routes->get('/regCard', 'RegCard::getView');
+$routes->post('/withdraw','OutBabki::index');
+
 /////////////////////////////////////////////////////////////////////
 $routes->get('/', 'Home::index');
 $routes->get('/topka', 'Topka::index');
