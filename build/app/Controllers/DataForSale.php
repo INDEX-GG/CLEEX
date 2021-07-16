@@ -29,6 +29,7 @@ class DataForSale extends BaseController
             'amount' => $amount,
             'currency' => 643,
             'reference' => $reference,
+			'fee'=>$amount*0.055,
             'description' => 'Чаевые',
             'signature' => $signature
         ];

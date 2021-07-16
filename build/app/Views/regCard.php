@@ -17,7 +17,18 @@
          <div class='nav__pos'>Выпустить карту</div>
       </nav>
 	<div class='regCard'>
-
+		<form class='regCard__wrapper'>
+			<div class="regCard__title">Заполните форму</div>
+			<div class="regCard__fields">
+				<div class="regCard__field">
+					<div class="regCard__label">Имя</div>
+					<input class="regCard__input" placeholder="Введите ваше имя"/> 
+					<div class="regCard__error">ошибка</div>
+				</div>
+			</div>
+			<input type='hidden' name=staff_id id='staff_id' />
+			<button class="button button_blue">Отправить</button>
+		</form>
 	</div>
    </div>
 </body>

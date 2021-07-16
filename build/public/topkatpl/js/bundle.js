@@ -4171,7 +4171,7 @@ function barman() {
 			let amount = (sum.value.replace(/\D+/g,"") * 100);
 			console.log(amount)
 			axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/withdraw', {staff_id: id, superbabki: amount })
-			.then(r => console.log(r))
+			.then(r => location = r.data.url)
 			.catch(e => console.error(e))
 		})
 
@@ -4311,9 +4311,9 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 				str = fixedComm;
 			} else {
 				str = (+str * (1 + commission)) - str;
-				str = Math.round(str);
+				// str = Math.round(str);
 			}
-			str = str.toLocaleString('ru', { maximumFractionDigits: 0, style: 'currency', currency: 'RUB' });
+			str = str.toLocaleString('ru', { maximumFractionDigits: 2, style: 'currency', currency: 'RUB' });
 			cmmssnTxt.textContent = `Я хочу взять на себя комиссию сотрудника (${str})`
 		}
 
@@ -4321,22 +4321,22 @@ function chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, star
 		function commissionRender(str) {
 			str = str + ' ';
 			str = str.replace(/\D+/g,"");
-			if (cmmssnChck.checked) {
-				str = staticDinamicCom(str)
-			}
+			// if (cmmssnChck.checked) {
+			// 	str = staticDinamicCom(str)
+			// }
 			inputRes.value = str * 100;
 		}
 
 		function commissionUnCheckRender() {
 			let a = inputSum.value;
 			a = a.replace(/\D+/g,"");
-			if (a < fixedMinSumm) {
-				a = +a + fixedComm;
-				a = Math.round(a);
-			} else {
-				a = a * (1 + commission);
-				a = Math.round(a);
-			}
+			// if (a < fixedMinSumm) {
+			// 	a = +a + fixedComm;
+			// 	a = Math.round(a);
+			// } else {
+			// 	a = a * (1 + commission);
+			// 	a = Math.round(a);
+			// }
 			inputRes.value = a * 100;
 		}
 
@@ -4961,13 +4961,69 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function barman() {
+function regCard() {
     if (document.querySelector('.regCard')) {
         Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["showNav"])();
-		
+		const regCard = document.querySelector('.regCard'),
+		regForm = regCard.querySelector('.regCard__wrapper');
+		async function getData() {
+			const data = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/GetProfileDate')
+			.then(r => r.data.staff_id)
+			.catch(e => console.error(e));
+			const staffIdField = regCard.querySelector('#staff_id');
+			console.log(data);
+			staffIdField.value = data;
+		}
+
+		const fields = [
+			{id: 1, label: 'Имя', placeholder: 'Введите ваше имя', type: 'text', name: 'first_name', error: '', required: 'required'},
+			{id: 2, label: 'Фамилия', placeholder: 'Введите вашу фамилию', type: 'text', name: 'last_name', error: '', required: 'required'},
+			{id: 3, label: 'Отчество', placeholder: 'Введите ваше отчество', type: 'text', name: 'patronymic', error: '', required: 'required'},
+			{id: 4, label: 'Дата рождения', placeholder: 'дата', type: 'date', name: 'birth_date', error: '', required: 'required'},
+			{id: 5, label: 'ИНН', placeholder: 'Введите ваш ИНН', type: 'text', name: 'inn', error: '', required: 'required'},
+			{id: 6, label: 'СНИЛС', placeholder: 'Введите ваш СНИЛС', type: 'text', name: 'snils', error: '', required: 'required'},
+			{id: 7, label: 'Адрес', placeholder: 'Введите адрес регистрации', type: 'text', name: 'address', error: '', required: 'required'},
+			{id: 8, label: 'Почта', placeholder: 'Введите вашу почту', type: 'email', name: 'email', error: '', required: 'required'},
+		];
+
+		function renderField({id, label, placeholder, type, name, error, required}) {
+			return (
+				`<div class="regCard__field">
+					<div class="regCard__label">
+						${label}
+					</div>
+					<input id=${id} class="regCard__input" 
+						placeholder=${placeholder.replaceAll(' ', '&nbsp;')} 
+						type=${type} 
+						name=${name}
+						${required} /> 
+					<div class="regCard__error">
+						${error}
+					</div>
+				</div>`
+			)
+		}
+
+		function render() {
+			const fieldsBox = document.querySelector('.regCard__fields');
+			fieldsBox.innerHTML = fields.map(item => renderField({...item})).join('');
+		}
+
+		regForm.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const formData = new FormData(regForm);
+			const data = Object.fromEntries(formData.entries());
+			axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/regCard', formData)
+			.then(r => location = r.data.url)
+			.catch(e => console.error(e))
+			console.log(data);
+		})
+
+		getData();
+		render();
     }
 }
-/* harmony default export */ __webpack_exports__["default"] = (barman);
+/* harmony default export */ __webpack_exports__["default"] = (regCard);
 
 /***/ }),
 
@@ -5231,7 +5287,8 @@ document.addEventListener('DOMContentLoaded', function () {
     Object(_modules_tables__WEBPACK_IMPORTED_MODULE_5__["default"])();
     Object(_modules_barman__WEBPACK_IMPORTED_MODULE_6__["default"])();
 	Object(_modules_reviews__WEBPACK_IMPORTED_MODULE_7__["default"])();
-	Object(_modules_chooseSum__WEBPACK_IMPORTED_MODULE_8__["default"])(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, start, end, min, max)
+	Object(_modules_chooseSum__WEBPACK_IMPORTED_MODULE_8__["default"])(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, start, end, min, max);
+	Object(_modules_regCard__WEBPACK_IMPORTED_MODULE_9__["default"])();
 });
 
 /***/ }),

@@ -25,7 +25,11 @@ class RegCard extends BaseController
             $first_name = $this->request->getVar("first_name");
             $patronymic = $this->request->getVar("patronymic");
             $last_name  =$this->request->getVar('last_name');
-            $birth_date = $this->request->getVar('birth_date');
+
+
+            $birth_date_box = explode('-',$this->request->getVar('birth_date'));
+			$birth_date = $birth_date_box[0].'.'.$birth_date_box[1].'.'.$birth_date_box[2];
+
             $address = $this->request->getVar('address');
             $email = $this->request->getVar('email');
 
@@ -46,7 +50,7 @@ class RegCard extends BaseController
 
 
             $queryUrl = http_build_query($data);
-
+	
             $result = file_get_contents("https://test.best2pay.net/webapi/b2puser/Register?" . $queryUrl);
 
 
@@ -55,12 +59,7 @@ class RegCard extends BaseController
             xml_parser_free($p);
 
 
-            $tableData = [
-                'staff_id'=> $this->request->getVar("staff_id"),
-                'requisit'=>$vals[5]["value"]
-            ];
 
-            $requisit->insert($tableData);
 
 ////////Подтверждение номера.
 
@@ -78,9 +77,7 @@ class RegCard extends BaseController
             ];
             $queryUrl = http_build_query($phoneData);
 
-
            return redirect()->to("https://test.best2pay.net/webapi/b2puser/SetPhone?".$queryUrl);
-
 
         }
         else

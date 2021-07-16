@@ -29,5 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
     chooseTables();
     barman();
 	reviews();
-	chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, start, end, min, max)
+	chooseSum(amount, commission, fixedComm, fixedMinSumm, cmmssnChsn, start, end, min, max);
+	regCard();
 });
