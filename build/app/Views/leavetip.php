@@ -55,7 +55,7 @@
             </div>
             <div class="paytip__checks">
                 <label class="checkbox">
-                    <input type="checkbox" id="comission"/>
+                    <input type="checkbox" id="comission" name='rat'/>
                     <div id='comText' class="checkbox__text" name='rat'>Я хочу взять на себя комиссию сотрудника ()</div>
                  </label>
                  <label class="checkbox">

@@ -21,7 +21,6 @@ class RegCard extends BaseController
             $sector = 2832;
 
 //
-
             $first_name = $this->request->getVar("first_name");
             $patronymic = $this->request->getVar("patronymic");
             $last_name  =$this->request->getVar('last_name');

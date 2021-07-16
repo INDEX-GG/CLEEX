@@ -19,25 +19,37 @@ class DataForSale extends BaseController
         $sector = 2832;
         $amount = $this->request->getVar("amount");
         $reference = rand(1, 999999);
-        $hashGen->h1($sector . $amount . '643test');
+//        $hashGen->h1($sector . $amount . '643test');
+
+        //$signature = $hashGen->signature;
 
 
+        //Если крыса в деле
+
+        if(!$this->request->getVar("rat") == "on")
+            $price = $amount;
+        else
+            $price = $amount-($amount * 0.055);
+
+
+
+
+        $hashGen->h1($sector . $price . '643test');
         $signature = $hashGen->signature;
 
         $data = [
             'sector' => $sector,
-            'amount' => $amount,
+            'amount' => $price,
             'currency' => 643,
             'reference' => $reference,
-			'fee'=>$amount*0.055,
+            'fee' => $amount * 0.055,
             'description' => 'Чаевые',
             'signature' => $signature
         ];
 
-
         $queryUrl = http_build_query($data);
 
-        $result = file_get_contents("https://test.best2pay.net/webapi/Register?" . $queryUrl);
+       $result = file_get_contents("https://test.best2pay.net/webapi/Register?" . $queryUrl);
 
         $p = xml_parser_create();
         xml_parse_into_struct($p, $result, $vals, $index);
@@ -48,10 +60,10 @@ class DataForSale extends BaseController
         $to_client_ref = $requisit->where('staff_id',$this->request->getVar("staff_id"))->findAll()[0]["requisit"];
 
         $tableData = [
-            'staff_id'=> $this->request->getVar("staff_id") ,//тут поменять
+            'staff_id'=> $this->request->getVar("staff_id") ,
             'status'=> true,
             'idZakas'=>$idReg,
-            'amount'=>$amount
+            'amount'=>$price
         ];
 
         $transaction->insert($tableData);
