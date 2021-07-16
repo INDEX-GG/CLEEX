@@ -18,10 +18,11 @@ function barman() {
 				id = res.data.staff_id;
                 currentSum.textContent = `+ ${toRubles(445)} за сегодня`
                 console.log(res);
+				renderBalance();
             });
         }
 		function renderBalance() {
-			axios.get('/getBalance')
+			axios.post('/getBalance', {staff_id: id})
 			.then(r => {
 				let sum = + r.data.balance / 100
 				console.log(r)
@@ -57,7 +58,7 @@ function barman() {
 		})
 
         renderGetData();
-		renderBalance()
+		
         // renderTotalSum(1350, 200);
     }
 }

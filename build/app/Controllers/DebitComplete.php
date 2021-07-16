@@ -45,11 +45,11 @@ class DebitComplete extends BaseController
             echo $url;
             $result = file_get_contents($url);
 
-//
-//		   $date = [
-//				'status'=>0
-//			];
-//			$transaction->update($item["idZakas"],$date);
+
+		   $date = [
+				'status'=>0
+			];
+			$transaction->update($item["idZakas"],$date);
         }
 	}
 }

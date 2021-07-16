@@ -4123,10 +4123,11 @@ function barman() {
 				id = res.data.staff_id;
                 currentSum.textContent = `+ ${Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["toRubles"])(445)} за сегодня`
                 console.log(res);
+				renderBalance();
             });
         }
 		function renderBalance() {
-			axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/getBalance')
+			axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/getBalance', {staff_id: id})
 			.then(r => {
 				let sum = + r.data.balance / 100
 				console.log(r)
@@ -4162,7 +4163,7 @@ function barman() {
 		})
 
         renderGetData();
-		renderBalance()
+		
         // renderTotalSum(1350, 200);
     }
 }
