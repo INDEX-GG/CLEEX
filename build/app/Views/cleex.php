@@ -259,10 +259,10 @@
             <p>ООО «ГУРУ ГРУПП»</p>
             <p>ИНН 7447294868</p>
             <p>ОГРН 1207400017505</p>
-            <div class="contacts__info__title">
+            <!-- <div class="contacts__info__title">
                 Наши партнёры
             </div>
-            <a class="contacts__info__local" href="./topka">Топка</a>
+            <a class="contacts__info__local" href="./topka">Топка</a> -->
 
         </div>
     </div>
