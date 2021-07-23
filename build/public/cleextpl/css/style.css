@@ -2377,10 +2377,6 @@ body {
     text-align: center;
     font-size: 24px;
     line-height: 32px;
-    -webkit-transform: scale(0.9) translateY(10px);
-        -ms-transform: scale(0.9) translateY(10px);
-            transform: scale(0.9) translateY(10px);
-    opacity: 0;
     -webkit-transition: all 550ms ease-in-out;
     -o-transition: all 550ms ease-in-out;
     transition: all 550ms ease-in-out;
@@ -2390,10 +2386,6 @@ body {
     text-align: left;
     font-size: 14px;
     line-height: 19px;
-    -webkit-transform: scale(0.9) translateY(10px);
-        -ms-transform: scale(0.9) translateY(10px);
-            transform: scale(0.9) translateY(10px);
-    opacity: 0;
     -webkit-transition: all 550ms ease-in-out;
     -o-transition: all 550ms ease-in-out;
     transition: all 550ms ease-in-out;
