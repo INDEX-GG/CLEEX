@@ -47,6 +47,9 @@ $routes->post('/regCard', 'RegCard::index');
 $routes->get('/regCard', 'RegCard::getView');
 $routes->post('/withdraw','OutBabki::index');
 
+
+$routes->get('/appleAuch','AuthApple::auth');
+
 /////////////////////////////////////////////////////////////////////
 $routes->get('/', 'Home::index');
 $routes->get('/topka', 'Topka::index');

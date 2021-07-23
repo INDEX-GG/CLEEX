@@ -25,10 +25,10 @@ class DebitComplete extends BaseController
             //$client_ref = "95c64500-5def-404e-8f86-4892eed8ee3e";
 
             $sector = 2832;
+
             $amount = $item["amount"];
 
             $hashGen->h1($sector . $item["idZakas"] . $amount . '643' . $client_ref . 'test');
-
 
             $signature = $hashGen->signature;
 
@@ -41,15 +41,16 @@ class DebitComplete extends BaseController
             ];
 
             $queryUrl = http_build_query($data);
+
             $url = "https://test.best2pay.net/webapi/b2puser/Complete?".$queryUrl."&currency=643";
 
             $result = file_get_contents($url);
 
 
-//		   $date = [
-//				'status'=>0
-//			];
-//			$transaction->update($item["idZakas"],$date);
+		   $date = [
+				'status'=>0
+			];
+			$transaction->update($item["idZakas"],$date);
         }
 	}
 }

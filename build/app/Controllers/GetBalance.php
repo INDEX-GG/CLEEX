@@ -12,9 +12,13 @@ class GetBalance extends BaseController
 	public function index()
 	{
         $hashGen = new HashGen();
+
         $requisit = new Requisits();
+
         $client_ref = $requisit->where('staff_id',$this->request->getVar("staff_id"))->findAll()[0]["requisit"];
+
         $sector = 2832;
+
         $hashGen->h1($sector.$client_ref.'test');
 
         $signature = $hashGen->signature;
@@ -35,6 +39,7 @@ class GetBalance extends BaseController
 
     
 		$arrRes["balance"] = $vals[3]["value"];
+
 		return $this->response->setJSON($arrRes);
     }
 }
