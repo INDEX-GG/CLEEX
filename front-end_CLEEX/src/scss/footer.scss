@@ -1,7 +1,7 @@
 .footer {
     width: 100%;
     background-color: $light;
-    height: $spacing * 11;
+    height: $spacing * 20;
     box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     z-index: 2;
@@ -14,10 +14,24 @@
         padding: 0 $padHor;
         margin: 0 auto;
         display: flex;
+        flex-direction: column;
+    }
+
+	&__top {
+		height: $spacing * 11;
+		display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-    }
+	}
+
+	&__bottom {
+		height: $spacing * 9;
+		display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+	}
 
     &__info {
         width: 30%;
@@ -99,6 +113,44 @@
         background: center center url(../img/vk.svg) no-repeat;
         background-size: cover;
     }
+
+	&__logoes {
+		display: flex;
+		height: 100%;
+		&>a {
+			margin: 0 10px;
+			box-sizing: border-box;
+			display: block;
+			height: 80%;
+			&:first-child {
+				margin-left: 0;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+		&_b2p {
+			width: 120px;
+			background: center center url(../img/best2pay.png) no-repeat;
+			background-size: contain;
+			
+		}
+		&_mir {
+			width: 80px;
+			background: center center url(../img/mir.png) no-repeat;
+			background-size: contain;
+		}
+		&_mc {
+			width: 50px;
+			background: center center url(../img/mastercard.png) no-repeat;
+			background-size: contain;
+		}
+		&_visa {
+			width: 80px;
+			background: center center url(../img/visa.png) no-repeat;
+			background-size: contain;
+		}
+	}
 }
 
 @media (max-width: 1440px) {
@@ -126,6 +178,14 @@
             flex-direction: column;
             justify-content: space-evenly;
         }
+		&__top {
+			flex-direction: column;
+            justify-content: space-evenly;
+		}
+
+		&__bottom {
+			justify-content: center;
+		}
 
         &__contacts {
             width: 100%;
@@ -167,4 +227,24 @@
             height: 24px;
         }
     }
+}
+
+@media (max-width: 768px) {
+	.footer {
+		&__logoes {
+			&_b2p {
+				width: 90px;
+				
+			}
+			&_mir {
+				width: 60px;
+			}
+			&_mc {
+				width: 35px;
+			}
+			&_visa {
+				width: 50px;
+			}	
+		}
+	}
 }
