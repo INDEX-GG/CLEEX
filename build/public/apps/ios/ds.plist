@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Cleex.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>35C206CF64EF125DD090513C40C844AE77E26AF4</string>
+				<key>dateExpires</key>
+				<string>29.07.2022</string>
+				<key>type</key>
+				<string>Apple Distribution</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>35C206CF64EF125DD090513C40C844AE77E26AF4</string>
+						<key>dateExpires</key>
+						<string>29.07.2022</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>OpenSSL.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>64HC6HGXN4</string>
+						<key>name</key>
+						<string>GURU GRUPP OOO</string>
+					</dict>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>64HC6HGXN4.ru.cleex.cleexapp</string>
+				<key>aps-environment</key>
+				<string>production</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>64HC6HGXN4</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>Cleex.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>a19258f7-917e-4c7d-b004-45df1816d7e5</string>
+				<key>name</key>
+				<string>iOS Team Ad Hoc Provisioning Profile: ru.cleex.cleexapp</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>64HC6HGXN4</string>
+				<key>name</key>
+				<string>GURU GRUPP OOO</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
