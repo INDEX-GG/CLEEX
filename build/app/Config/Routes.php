@@ -46,9 +46,17 @@ $routes->post('/final', 'DebitComplete::index');
 $routes->post('/regCard', 'RegCard::index');
 $routes->get('/regCard', 'RegCard::getView');
 $routes->post('/withdraw','OutBabki::index');
+/////////////////////////////////////////////////////////////////  IOS
+$routes->post('/TablesIOS','TablesIOS::index');
 
+$routes->post('/fixTableIOS','UsedTablesIOS::fixTable');
+$routes->post('/unsetTableIOS','UsedTablesIOS::unsetTable');
 
 $routes->post('/appleAuch','AuthApple::auth');
+
+$routes->post('/ProfileIOS','ProfileIOS::getDate');
+
+$routes->post('/UpdateProfileIOS','UpdateProfileIOS::updateProfileDate');
 
 /////////////////////////////////////////////////////////////////////
 $routes->get('/', 'Home::index');

@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Controllers;
+
+use App\Controllers\BaseController;
+use CodeIgniter\Model;
+
+class ProfileIOS extends BaseController
+{
+    public function getDate()
+    {
+        $staff = new Staff();
+
+
+        $data = $staff->find($this->request->getVar("user_id"));
+
+        $arr["name"] = $data["name"];
+        $arr["motto"] = $data["motto"];
+        $arr["img"] = 'images/'.$data['photo'];
+        $arr["staff_id"] = $this->request->getVar("user_id");
+        //  var_dump(json_encode($arr, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+//            exit();
+        // return $this->response->setJSON($arr, false);
+        return $this->response->setJSON(json_encode($arr, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+    }
+}
